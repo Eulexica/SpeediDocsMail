@@ -1,0 +1,299 @@
+//////////////////////////////////////////////////////////////////////
+/////////////////////////////// Summary //////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+		Features:  			        13
+		Components:			        18
+		Number of Files:		        27
+		Size of Files:   		      31722296
+		Size in Library:		      13270072
+
+
+		<Support>
+			Engine
+				Log
+				Kernel
+			Main Installation
+				Script
+				Setup
+				StrTbl
+				RunTime
+				Resource
+		<Data>
+			Disk<1>
+			DefaultFeature
+
+
+//////////////////////////////////////////////////////////////////////
+///////////////////////////// Features ///////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+*<Support>*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Engine*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Engine\Log*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Engine\Kernel*
+
+		Component
+		------------------------------------------------------
+		"<Engine>Kernel Placeholder"
+		"<Engine>EngineCommonPlaceHolderSelfReg"
+
+*<Support>\Main Installation*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Main Installation\Script*
+
+		Component
+		------------------------------------------------------
+		"<Support>Script"
+
+*<Support>\Main Installation\Setup*
+
+		Component
+		------------------------------------------------------
+		"<Support>Language Independent OS Independent Files"
+		"<Support>0x0409 OS Independent Files"
+		"<Support>Build Generated Support Files"
+		"<Support>Misc Support Files"
+		"<Support>Misc i64 Support Files"
+		"<Support>Misc x64 Support Files"
+
+*<Support>\Main Installation\StrTbl*
+
+		Component
+		------------------------------------------------------
+		"<Support>0x0409 String Tables"
+
+*<Support>\Main Installation\RunTime*
+
+		Component
+		------------------------------------------------------
+		"<Support>Non-SelfRegistering"
+
+*<Support>\Main Installation\Resource*
+
+		Component
+		------------------------------------------------------
+		"<Support>0x0409 Files"
+
+*<Data>*
+
+		Component
+		------------------------------------------------------
+
+*<Data>\Disk<1>*
+
+		Component
+		------------------------------------------------------
+		"<Disk1>Disk1 Files(1)"
+		"<Disk1>Disk1 Files(2)"
+		"<Disk1>Disk1 Files(3)"
+		"<Disk1>Disk1 Files(4)"
+
+*<Data>\DefaultFeature*
+
+		Component
+		------------------------------------------------------
+		"DefaultComponent"
+		"SelfRegFiles"
+
+
+//////////////////////////////////////////////////////////////////////
+///////////////////////////// Components ////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+><Engine>Kernel Placeholder<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+
+><Engine>EngineCommonPlaceHolderSelfReg<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+
+><Support>Script<
+
+		Size of Files:   		        222024
+		Size in Library:		        222024
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.inx"                                             13/02/2020  09:47:12 AM       222024  ""                 "A"           "2d07dbacc6a45353e1d6ee3ca572c68b"      "d:\insight_xe4_source\speedidocsmail\speedidocsmail\script files\setup.inx"
+
+><Support>Language Independent OS Independent Files<
+
+		Size of Files:   		         11493
+		Size in Library:		          2605
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"license.rtf"                                           28/11/2004  10:52:18 AM        11493  ""                 "A"           "e7eb45e877c8cb80f56e9dbc9504e757"      "c:\program files (x86)\installshield\2010\redist\0409\license.rtf"
+
+><Support>0x0409 OS Independent Files<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+
+><Support>Build Generated Support Files<
+
+		Size of Files:   		           125
+		Size in Library:		            99
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"fontdata.ini"                                          13/02/2020  09:47:12 AM           39  ""                 "A"           "00f313e3e007599349a0c4d81c7807c4"      "c:\users\alex\appdata\local\temp\fontdata.ini"
+		"difxdata.ini"                                          13/02/2020  09:47:12 AM           86  ""                 "A"           "10baa5b67536f4433f37534b9c8bb828"      "c:\users\alex\appdata\local\temp\difxdata.ini"
+
+><Support>Misc Support Files<
+
+		Size of Files:   		         76583
+		Size in Library:		         17909
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"corecomp.ini"                                          07/03/2006  12:55:04 AM        65503  ""                 "A"           "09d38ceca6a012f4ce5b54f03db9b21a"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\corecomp.ini"
+		"dotnetinstaller.exe"                                   10/06/2009  03:57:52 PM        11080  "16.0.0.328"       "A"           "94b6f434210bfad6abdcf818b8cf350f"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\dotnetinstaller.exe"
+
+><Support>Misc i64 Support Files<
+
+		Size of Files:   		        239416
+		Size in Library:		        103979
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"isbew64.exe"                                           10/06/2009  03:59:18 PM       239416  "16.0.0.328"       "A"           "38eb6c08e3e7e385255119c8c732fa99"      "c:\program files (x86)\installshield\2010\redist\language independent\i64\isbew64.exe"
+
+><Support>Misc x64 Support Files<
+
+		Size of Files:   		        107320
+		Size in Library:		         52026
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"isbew64.exe"                                           10/06/2009  03:59:18 PM       107320  "16.0.0.328"       "A"           "41cb698f967b4d9f2580ea2a21a5a710"      "c:\program files (x86)\installshield\2010\redist\language independent\x64\isbew64.exe"
+
+><Support>0x0409 String Tables<
+
+		Size of Files:   		           295
+		Size in Library:		           155
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"stringtable_0x0409.ips"                                13/02/2020  09:47:12 AM          295  ""                 "A"           "0f69fe95d6dfff675947263d06fbeb50"      "d:\insight_xe4_source\speedidocsmail\speedidocsmail\string tables\stringtable_0x0409.ips"
+
+><Support>Non-SelfRegistering<
+
+		Size of Files:   		        262592
+		Size in Library:		        253568
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"isrt.dll"                                              22/09/2009  02:08:46 AM       261424  "16.0.0.400"       "A"           "ed5aa645392883b21507c8d097fda277"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\isrt.dll"
+		"default.pal"                                           07/03/2006  12:55:02 AM         1168  ""                 "A"           "0abafe3f69d053494405061de2629c82"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\default.pal"
+
+><Support>0x0409 Files<
+
+		Size of Files:   		        553067
+		Size in Library:		        118709
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"_isres_0x0409.dll"                                     10/06/2009  03:16:34 PM       553067  "16.0.0.328"       "A"           "8938d3d18b09e92eeb9c403593365eb0"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\_isres_0x0409.dll"
+
+><Disk1>Disk1 Files(1)<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"layout.bin"                                            28/11/2004  11:32:10 AM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\program files (x86)\installshield\2010\support\build\layout.bin"
+		"data1.hdr"                                             28/11/2004  11:32:10 AM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\program files (x86)\installshield\2010\support\build\data1.hdr"
+		"data1.cab"                                             28/11/2004  11:32:10 AM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\program files (x86)\installshield\2010\support\build\data1.cab"
+
+><Disk1>Disk1 Files(2)<
+
+		Size of Files:   		       1401334
+		Size in Library:		       1401334
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.exe"                                             13/02/2020  09:47:12 AM       802816  "16.0.0.400"       "A"           "07c90b494645f1a143d934139f49264a"      "d:\insight_xe4_source\speedidocsmail\speedidocsmail\media\single_exe_image\disk images\disk1\setup.exe"
+		"issetup.dll"                                           22/09/2009  02:08:46 AM       577024  "16.0.0.400"       ""            "1bf0fc52d41be3f3c1025b3971bc49a0"      "d:\insight_xe4_source\speedidocsmail\speedidocsmail\media\single_exe_image\disk images\disk1\issetup.dll"
+		"0x0409.ini"                                            21/05/2009  04:53:56 PM        21494  ""                 "A"           "36affbd6ff77d1515cfc1c5e998fbaf9"      "d:\insight_xe4_source\speedidocsmail\speedidocsmail\media\single_exe_image\disk images\disk1\0x0409.ini"
+
+><Disk1>Disk1 Files(3)<
+
+		Size of Files:   		        222024
+		Size in Library:		        222024
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.inx"                                             13/02/2020  09:47:12 AM       222024  ""                 "A"           "2d07dbacc6a45353e1d6ee3ca572c68b"      "d:\insight_xe4_source\speedidocsmail\speedidocsmail\script files\setup.inx"
+
+><Disk1>Disk1 Files(4)<
+
+		Size of Files:   		          1207
+		Size in Library:		          1207
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.ini"                                             13/02/2020  09:47:12 AM         1207  ""                 "A"           "2a519772692ee57de7f98e5e3e2e813d"      "d:\insight_xe4_source\speedidocsmail\speedidocsmail\media\single_exe_image\disk images\disk1\setup.ini"
+
+>DefaultComponent<
+
+		Size of Files:   		       2856368
+		Size in Library:		       1356417
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"intresource.dll"                                       13/04/2019  12:19:46 AM       441560  "1.0.5.167"        "A"           "44e6519639fe5931e9f198d9ac7ca550"      "d:\insight_xe4_source\speedidocsmail\intresource.dll"
+		"intresource64.dll"                                     13/04/2019  12:19:46 AM       702680  "1.0.5.167"        "A"           "c4c7b3c20e76369fedbf33ab7f12214c"      "d:\insight_xe4_source\speedidocsmail\intresource64.dll"
+		"gdiplus.dll"                                           13/04/2019  12:19:48 AM      1712128  "5.1.3102.2180"    "A"           "78bdc89c5d9e206209bec5a5a73f91f7"      "d:\insight_xe4_source\speedidocsmail\gdiplus.dll"
+
+>SelfRegFiles<
+
+		Size of Files:   		      25768448
+		Size in Library:		       9518016
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"speedidocsmail.dll"                                    11/02/2020  05:07:38 PM     25768448  "4.0.0.20"         "A"           "7e7e642fb4612ab9b7721ba1bdd86c7e"      "d:\insight_xe4_source\speedidocsmail\win32\output\speedidocsmail.dll"

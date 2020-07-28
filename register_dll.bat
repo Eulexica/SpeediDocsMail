@@ -1,0 +1,1 @@
+"C:\Windows\System32\Regsvr32.exe" /s "C:\Program Files (x86)\SpeediDocs\SpeediDocsMail.dll"
