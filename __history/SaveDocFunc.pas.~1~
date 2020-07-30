@@ -4,8 +4,8 @@ interface
 
 uses
    Forms, SysUtils, Variants, Windows, Ora,
-   DBAccess, MemDS, SaveDoc, System.Classes, Dialogs,
-   {AES 07/09/2018} ActiveX, ShlObj, ComObj, ShellAPI;
+   DBAccess, MemDS, dmData, System.Classes, Dialogs,
+   ActiveX, ShlObj, ComObj, ShellAPI;
 const
 
 
@@ -80,11 +80,12 @@ type
    function CopyFileIFileOperationForceDirectories(const srcFile, destFile : string; DeleteOrigDoc: boolean = False) : boolean;
    function MsgAsk(sMsg: string): integer;
    function WriteFileToDisk(var ANewDocName: string; AOldDocName: string; ADeleteFile: boolean = False): boolean;
+   function StripNonAscii(s: string): string;
 
 implementation
 
 uses
-   LoginDetails, SpeediDocs_IMPL;
+   LoginDetails, SpeediDocsMail_IMPL;
 
 var // for macros..
   GTempPath,
@@ -154,10 +155,6 @@ function TableString(Table, LookupField, LookupValue, ReturnField: string): stri
 var
   qryLookup: TOraQuery;
 begin
-//  if not assigned(dmSaveDoc) then
-//     dmSaveDoc := TdmSaveDoc.Create(Application);
-//  if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
-
   qryLookup := TOraQuery.Create(nil);
   qryLookup.Session := dmConnection.orsInsight;
   with qryLookup do
@@ -175,9 +172,6 @@ function TableString(Table, LookupField: string; LookupValue: integer; ReturnFie
 var
   qryLookup: TOraQuery;
 begin
-//  if not assigned(dmSaveDoc) then
-//     dmSaveDoc := TdmSaveDoc.Create(Application);
-//  if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
   qryLookup := TOraQuery.Create(nil);
   qryLookup.Session := dmConnection.orsInsight;
   with qryLookup do
@@ -195,9 +189,6 @@ function TableInteger(Table, LookupField, LookupValue, ReturnField: string): int
 var
   qryLookup: TOraQuery;
 begin
-//  if not assigned(dmSaveDoc) then
-//     dmSaveDoc := TdmSaveDoc.Create(Application);
-//  if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
   qryLookup := TOraQuery.Create(nil);
   qryLookup.Connection := dmConnection.orsInsight;
   with qryLookup do
@@ -213,9 +204,6 @@ end;
 
 function SystemString(sField: string): string;
 begin
-//   if not assigned(dmSaveDoc) then
-//      dmSaveDoc := TdmSaveDoc.Create(Application);
-//   if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
    with dmConnection.qrySysfile do
    begin
       SQL.Text := 'SELECT ' + sField + ' FROM SYSTEMFILE';
@@ -231,9 +219,6 @@ end;
 
 function SystemInteger(sField: string): integer;
 begin
-//   if not assigned(dmSaveDoc) then
-//      dmSaveDoc := TdmSaveDoc.Create(Application);
-//   if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
    SystemInteger := -1;
    with dmConnection.qrySysfile do
    begin
@@ -285,8 +270,6 @@ begin
       FreeMem(verBuf);
     end;
   end;
-
-//  ReportVersion := IntToStr(wVersionMajor) + '.' + IntToStr(wVersionMinor) + '.' + IntToStr(wVersionRelease) + '.' + IntToStr(wVersionBuild);
 end;
 
 function IndexPath(PathText, PathLoc: string): string;
@@ -358,35 +341,35 @@ begin
          AError := GetLastError;
          case AError of
             80: begin
-                   if Application.MessageBox('File already exists. Do you want to overwrite it?' , 'Insight', MB_YESNO + MB_ICONQUESTION) = IDYES then
+                   if Application.MessageBox('File already exists. Do you want to overwrite it?' , 'SpeediDocs', MB_YESNO + MB_ICONQUESTION) = IDYES then
                       ADocumentSaved := CopyFile(PChar(AOldDocName) ,pchar(ANewDocName), false);
                 end;
             82: begin
-                  Application.MessageBox(pchar('There was an error during the saving of the document.  The directory or file could not be created. ['+ ANewDocName + ']'), 'Insight', MB_OK + MB_ICONERROR);
+                  Application.MessageBox(pchar('There was an error during the saving of the document.  The directory or file could not be created. ['+ ANewDocName + ']'), 'SpeediDocs', MB_OK + MB_ICONERROR);
                   ADocumentSaved := False;
                 end;
             5:  begin
-                  Application.MessageBox('There was an error during the saving of the document.  Access denied.', 'Insight', MB_OK + MB_ICONERROR);
+                  Application.MessageBox('There was an error during the saving of the document.  Access denied.', 'SpeediDocs', MB_OK + MB_ICONERROR);
                   ADocumentSaved := False;
                 end;
             39,112: begin
-                  Application.MessageBox('There was an error during the saving of the document.  The disk is full!', 'Insight', MB_OK + MB_ICONERROR);
+                  Application.MessageBox('There was an error during the saving of the document.  The disk is full!', 'SpeediDocs', MB_OK + MB_ICONERROR);
                   ADocumentSaved := False;
                 end;
             111:begin
-                  Application.MessageBox('There was an error during the saving of the document.  The filename is to long!', 'Insight', MB_OK + MB_ICONERROR);
+                  Application.MessageBox('There was an error during the saving of the document.  The filename is to long!', 'SpeediDocs', MB_OK + MB_ICONERROR);
                   ADocumentSaved := False;
                 end;
             53 :begin
-                  Application.MessageBox(pchar('There was an error during the saving of the document.  The network path was not found! ['+pchar(ANewDocName)+']'), 'Insight', MB_OK + MB_ICONERROR);
+                  Application.MessageBox(pchar('There was an error during the saving of the document.  The network path was not found! ['+pchar(ANewDocName)+']'), 'SpeediDocs', MB_OK + MB_ICONERROR);
                   ADocumentSaved := False;
                 end;
             3  :begin
-                  Application.MessageBox(pchar('There was an error during the saving of the document.  The system cannot find the path specified! ['+pchar(ANewDocName)+']'), 'Insight', MB_OK + MB_ICONERROR);
+                  Application.MessageBox(pchar('There was an error during the saving of the document.  The system cannot find the path specified! ['+pchar(ANewDocName)+']'), 'SpeediDocs', MB_OK + MB_ICONERROR);
                   ADocumentSaved := False;
                 end;
          else
-            Application.MessageBox(pchar(pchar('There was an error during the saving of the document.  The document was not saved. Error: ' + IntTostr(AError)) +' ['+ANewDocName+']'), 'Insight', MB_OK + MB_ICONERROR);
+            Application.MessageBox(pchar(pchar('There was an error during the saving of the document.  The document was not saved. Error: ' + IntTostr(AError)) +' ['+ANewDocName+']'), 'SpeediDocs', MB_OK + MB_ICONERROR);
             ADocumentSaved := False;
          end;
       end;
@@ -396,7 +379,7 @@ begin
    except
       on E: Exception do
       begin
-         Application.MessageBox(pchar('There was an Error during the saving of the document.  The document was not saved: ' + E.Message), 'Insight', MB_OK + MB_ICONERROR);
+         Application.MessageBox(pchar('There was an Error during the saving of the document.  The document was not saved: ' + E.Message), 'SpeediDocs', MB_OK + MB_ICONERROR);
          ADocumentSaved := False;
       end;
    end;
@@ -408,10 +391,6 @@ var
   sGetField: string;
   qryThisMatter: TOraQuery;
 begin
-//  if not assigned(dmSaveDoc) then
-//     dmSaveDoc := TdmSaveDoc.Create(Application);
-//  if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
-
   Result := '';
   qryThisMatter := TOraQuery.Create(nil);
   try
@@ -439,10 +418,6 @@ var
   sGetField: string;
   qryThisMatter: TOraQuery;
 begin
-//  if not assigned(dmSaveDoc) then
-//     dmSaveDoc := TdmSaveDoc.Create(Application);
-//  if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
-
   Result := '';
   qryThisMatter := TOraQuery.Create(nil);
   try
@@ -470,10 +445,6 @@ function TableCurrency(Table, LookupField, LookupValue, ReturnField: string): cu
 var
   qryLookup: TOraQuery;
 begin
-//   if not assigned(dmSaveDoc) then
-//      dmSaveDoc := TdmSaveDoc.Create(Application);
-//   if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
-
    qryLookup := TOraQuery.Create(nil);
    qryLookup.Connection := dmConnection.orsInsight;
    with qryLookup do
@@ -492,10 +463,6 @@ function TableCurrency(Table, LookupField: string; LookupValue: Integer; ReturnF
 var
   qryLookup: TOraQuery;
 begin
-//   if not assigned(dmSaveDoc) then
-//     dmSaveDoc := TdmSaveDoc.Create(Application);
-//   if dmSaveDoc.orsInsight.Connected = False then dmSaveDoc.GetUserID;
-
    qryLookup := TOraQuery.Create(nil);
    qryLookup.Connection := dmConnection.orsInsight;
    with qryLookup do
@@ -758,60 +725,59 @@ var
    dAmount: Currency;
    lUnits: string;
 begin
-  try
-     with dmConnection.qryTmp do
-     begin
-       Connection := dmConnection.orsInsight;
-       SQL.Text := 'SELECT PARTNER, FILEID, NCLIENT, TITLE, SHORTDESCR FROM MATTER WHERE NMATTER = :NMATTER';
-       Params[0].AsInteger := NMatter;
-       Open;
-     end;
-     if not dmConnection.qryTmp.IsEmpty then
-       try
-         with dmConnection.qryFeeTmpInsert do
-         begin
-           ParamByName('CREATED').AsDateTime := Now;
-           ParamByName('AUTHOR').AsString := AAuthor;
+   try
+      with dmConnection.qryTmp do
+      begin
+         Connection := dmConnection.orsInsight;
+         SQL.Text := 'SELECT PARTNER, FILEID, NCLIENT, TITLE, SHORTDESCR FROM MATTER WHERE NMATTER = :NMATTER';
+         ParamByName('NMATTER').AsInteger := NMatter;
+         Open;
+      end;
+      if not dmConnection.qryTmp.IsEmpty then
+         try
+            with dmConnection.qryFeeTmpInsert do
+            begin
+               ParamByName('CREATED').AsDateTime := Now;
+               ParamByName('AUTHOR').AsString := AAuthor;
 //           ParamByName('PARTNER').AsString := dmSaveDoc.qryTmp.FieldByName('PARTNER').AsString;
 //           ParamByName('BANK_ACCT').AsString := dmSaveDoc.Entity;
-           if (ATask <> '') then
-           begin
-              lUnits := TableString('SCALECOST','CODE', ATask, 'UNIT');
-              if lUnits = '' then
-                 lUnits := 'Units';
-           end;
-           ParamByName('UNIT').AsString := lUnits;
-           ParamByName('EMPCODE').AsString := AAuthor;
-           ParamByName('EMP_TYPE').AsString := TableString('EMPLOYEE', 'CODE', AAuthor, 'TYPE');
-           ParamByName('DESCR').AsString := Reason;
-           ParamByName('FILEID').AsString := dmConnection.qryTmp.FieldByName('FILEID').AsString;
-           ParamByName('NMATTER').AsInteger := NMatter;
+               if (ATask <> '') then
+               begin
+                  lUnits := TableString('SCALECOST','CODE', ATask, 'UNIT');
+                  if lUnits = '' then
+                     lUnits := 'Units';
+               end;
+               ParamByName('UNIT').AsString := lUnits;
+               ParamByName('EMPCODE').AsString := AAuthor;
+               ParamByName('EMP_TYPE').AsString := TableString('EMPLOYEE', 'CODE', AAuthor, 'TYPE');
+               ParamByName('DESCR').AsString := Reason;
+               ParamByName('FILEID').AsString := dmConnection.qryTmp.FieldByName('FILEID').AsString;
+               ParamByName('NMATTER').AsInteger := NMatter;
 //           ParamByName('NCLIENT').AsInteger := dmSaveDoc.qryTmp.FieldByName('NCLIENT').AsInteger;
-           ParamByName('TAXCODE').AsString := ATaxType;
-           dAmount := Amount;
+               ParamByName('TAXCODE').AsString := ATaxType;
+               dAmount := Amount;
 
-           ParamByName('MATLOCATE').AsString := dmConnection.qryTmp.FieldByName('TITLE').AsString +' - ' + dmConnection.qryTmp.FieldByName('SHORTDESCR').AsString;
-           ParamByName('CAPTION').AsString := dmConnection.qryTmp.FieldByName('FILEID').AsString +' - ' + dmConnection.qryTmp.FieldByName('SHORTDESCR').AsString;
-           ParamByName('AMOUNT').AsFloat := dAmount;
-           ParamByName('TASK').AsString := ATask;
-           ParamByName('UNITS').AsInteger := AUnits;
-           ParamByName('MINS').AsFloat := AMinutes;
-           ParamByName('RATE').AsCurrency := ARate;
-           ParamByName('TAX').AsFloat := TaxCalc(dAmount, '', dmConnection.DefaultTax, Now);
-           ParamByName('VERSION').AsString := ReportVersion(SysUtils.GetModuleName(HInstance));
-           Prepare;
-           Execute;
+               ParamByName('MATLOCATE').AsString := dmConnection.qryTmp.FieldByName('TITLE').AsString +' - ' + dmConnection.qryTmp.FieldByName('SHORTDESCR').AsString;
+               ParamByName('CAPTION').AsString := dmConnection.qryTmp.FieldByName('FILEID').AsString +' - ' + dmConnection.qryTmp.FieldByName('SHORTDESCR').AsString;
+               ParamByName('AMOUNT').AsFloat := dAmount;
+               ParamByName('TASK').AsString := ATask;
+               ParamByName('UNITS').AsInteger := AUnits;
+               ParamByName('MINS').AsFloat := AMinutes;
+               ParamByName('RATE').AsCurrency := ARate;
+               ParamByName('TAX').AsFloat := TaxCalc(dAmount, '', dmConnection.DefaultTax, Now);
+               ParamByName('VERSION').AsString := ReportVersion(SysUtils.GetModuleName(HInstance));
+               Prepare;
+               Execute;
 //           MatterUpdate(NMatter, 'UNBILL_FEES', dAmount + TaxCalc(dAmount, '', dmSaveDoc.DefaultTax, Now));
-
+            end;
+         except
+//            On E:Exception do
+//               Application.MessageBox(pchar('Error occured saving entry'#13#13 + E.Message),'Insight', MB_OK+MB_ICONERROR);
          end;
-       except
-         On E:Exception do
-            Application.MessageBox(pchar('Error occured saving entry'#13#13 + E.Message),'Insight', MB_OK+MB_ICONERROR);
-       end;
-  finally
-     dmConnection.orsInsight.Commit;
-     dmConnection.qryTmp.Close;
-  end;
+   finally
+//      dmConnection.orsInsight.Commit;
+      dmConnection.qryTmp.Close;
+   end;
 end;
 
 
@@ -1087,7 +1053,6 @@ begin
   MessageDlg(Format('%s',[sMsg]), mtInformation, [mbOK], 0);
 end;
 
-// AES 07/09/2018
 function MsgAsk(sMsg: string): integer;
 begin
   Result := MessageDlg(Format('%s',[sMsg]), mtConfirmation, [mbYes,mbNo], 0);
@@ -1108,14 +1073,14 @@ end;
 function CopyFileIFileOperationForceDirectories(const srcFile, destFile : string; DeleteOrigDoc: boolean) : boolean;
 //works on Windows >= Vista and 2008 server
 var
-  r : HRESULT;
-  fileOp: IFileOperation;
-  siSrcFile: IShellItem;
-  siDestFolder: IShellItem;
-  destFileFolder, destFileName : string;
-  pbc : IBindCtx;
-  w32fd : TWin32FindData;
-  ifs : TFileSystemBindData;
+   r : HRESULT;
+   fileOp: IFileOperation;
+   siSrcFile: IShellItem;
+   siDestFolder: IShellItem;
+   destFileFolder, destFileName : string;
+   pbc : IBindCtx;
+   w32fd : TWin32FindData;
+   ifs : TFileSystemBindData;
 begin
    result := false;
 
@@ -1135,7 +1100,7 @@ begin
          if Succeeded(r) then
          begin
             //set operations flags
-            r := fileOp.SetOperationFlags(FOF_NOCONFIRMATION OR FOFX_NOMINIMIZEBOX);
+            r := fileOp.SetOperationFlags(FOF_NOCONFIRMATION OR FOFX_NOMINIMIZEBOX OR FOF_NOCONFIRMMKDIR OR FOF_SILENT);
             if Succeeded(r) then
             begin
                //get source shell item
@@ -1158,12 +1123,17 @@ begin
                   //get destination folder shell item
                   r := SHCreateItemFromParsingName(PChar(destFileFolder), pbc, IShellItem, siDestFolder);
 
-                  if DeleteOrigDoc = False then
-                  //add copy operation
-                     if Succeeded(r) then r := fileOp.CopyItem(siSrcFile, siDestFolder, PChar(destFileName), nil)
+                  if (DeleteOrigDoc = False) then
+                  begin
+                     //add copy operation
+                     if Succeeded(r) then
+                        r := fileOp.CopyItem(siSrcFile, siDestFolder, PChar(destFileName), nil);
+                  end
                   else
-                  //add move operation
-                     if Succeeded(r) then r := fileop.MoveItem(siSrcFile, siDestFolder, PChar(destFileName), nil)
+                  begin
+                     //add move operation
+                     if Succeeded(r) then r := fileop.MoveItem(siSrcFile, siDestFolder, PChar(destFileName), nil);
+                  end;
                end;
 
                //execute
@@ -1248,6 +1218,29 @@ begin
       end;
    end;
    Result := ADocumentSaved;
+end;
+
+function StripNonAscii(s: string): string;
+var
+   Count, i:Integer;
+begin
+   Count := 0;
+   for i:=1 to Length(s) do
+      if ((s[i] >= #32) and (s[i] <= #127)) or (s[i] in [#10, #13]) then
+         Inc(Count);
+   if Count = Length(s) then
+      Result := s // No characters need to be removed, return the original string (no mem allocation!)
+   else
+   begin
+      SetLength(Result, Count);
+      Count := 1;
+      for i:=1 to Length(s) do
+         if ((s[i] >= #32) and (s[i] <= #127)) or (s[i] in [#10, #13]) then
+         begin
+            Result[Count] := s[i];
+            Inc(Count);
+         end;
+   end;
 end;
 
 end.

@@ -190,6 +190,7 @@ object dmSaveDoc: TdmSaveDoc
       '  DOC.EMAIL_FROM,'
       '  DOC.EMAIL_SENT_TO,'
       '  DOC.FOLDER_ID,'
+      '  DOC.EMAIL_SUBJECT,'
       '  DOC.ROWID'
       'FROM'
       '  DOC'
@@ -252,7 +253,7 @@ object dmSaveDoc: TdmSaveDoc
       'from '
       'doc'
       'where'
-      'trim(descr)= trim(:descr)'
+      'trim(email_subject)= trim(:email_subject)'
       'and'
       
         'To_date(TO_CHAR(:d_create, '#39'DD/MM/YYYY HH:MI:SS'#39'),'#39'DD/MM/YYYY HH' +
@@ -268,7 +269,7 @@ object dmSaveDoc: TdmSaveDoc
     ParamData = <
       item
         DataType = ftUnknown
-        Name = 'descr'
+        Name = 'email_subject'
         Value = nil
       end
       item

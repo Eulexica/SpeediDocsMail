@@ -1,5 +1,5 @@
 #define AppName "{543CFF7F-8DE9-4797-AEDF-83DCD6C3E8D7}"
-#define AppVersion "4.0.0.24"
+#define AppVersion "4.0.0.25"
 
 
 

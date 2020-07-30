@@ -94,61 +94,61 @@ var // for macros..
 
 function GetSeqNumber(sSequence: string): Integer;
 begin
-  try
-     with dmConnection.qryTmp do
-     begin
-       Close;
-       SQL.Clear;
-       SQL.Add('SELECT ' + sSequence + '.currval');
-       SQL.Add('FROM DUAL');
-       ExecSQL;
-       Result := Fields[0].AsInteger;
-       Close;
-     end;
-  except
+   try
+      with dmConnection.qryTmp do
+      begin
+         Close;
+         SQL.Clear;
+         SQL.Add('SELECT ' + sSequence + '.currval');
+         SQL.Add('FROM DUAL');
+         ExecSQL;
+         Result := Fields[0].AsInteger;
+         Close;
+      end;
+   except
       //
-  end;
+   end;
 end;
 
 function ParseMacros(AFileName: String; ANMatter: Integer; ADocID: Integer; ADocDescr: string): String;
 var
   LBfr: Array[0..MAX_PATH] of Char;
 begin
-  if(GHomePath = '') then
-    GHomePath := GetEnvironmentVariable('HOMEDRIVE') + GetEnvironmentVariable('HOMEPATH');
+   if(GHomePath = '') then
+      GHomePath := GetEnvironmentVariable('HOMEDRIVE') + GetEnvironmentVariable('HOMEPATH');
 
-  if(GTempPath = '') then
-  begin
-    GetTempPath(MAX_PATH,Lbfr);
-    GTempPath := String(LBfr);
-  end;
+   if(GTempPath = '') then
+   begin
+      GetTempPath(MAX_PATH,Lbfr);
+      GTempPath := String(LBfr);
+   end;
 
-  Result := AFileName;
+   Result := AFileName;
 
-  Result := StringReplace(Result,C_MACRO_USERHOME,GHomePath,[rfReplaceAll, rfIgnoreCase]);
-  Result := StringReplace(Result,C_MACRO_TEMPDIR,GTempPath,[rfReplaceAll, rfIgnoreCase]);
-  Result := StringReplace(Result,C_MACRO_NMATTER,IntToStr(ANMatter),[rfReplaceAll, rfIgnoreCase]);
-  Result := StringReplace(Result,C_MACRO_FILEID, TableString('MATTER','NMATTER',IntToStr(ANMatter),'FILEID'),[rfReplaceAll, rfIgnoreCase]);
-  Result := StringReplace(Result,C_MACRO_CLIENTID, TableString('MATTER','NMATTER',IntToStr(ANMatter),'CLIENTID'),[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_USERHOME,GHomePath,[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_TEMPDIR,GTempPath,[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_NMATTER,IntToStr(ANMatter),[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_FILEID, TableString('MATTER','NMATTER',IntToStr(ANMatter),'FILEID'),[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_CLIENTID, TableString('MATTER','NMATTER',IntToStr(ANMatter),'CLIENTID'),[rfReplaceAll, rfIgnoreCase]);
 
-  Result := StringReplace(Result,C_MACRO_DATE,FormatDateTime('dd-mm-yyyy',Now()) ,[rfReplaceAll, rfIgnoreCase]);
-  Result := StringReplace(Result,C_MACRO_TIME,FormatDateTime('hh-nn-ss',Now()),[rfReplaceAll, rfIgnoreCase]);
-  Result := StringReplace(Result,C_MACRO_DATETIME,FormatDateTime('dd-mm-yyyy-hh-nn-ss',Now()),[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_DATE,FormatDateTime('dd-mm-yyyy',Now()) ,[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_TIME,FormatDateTime('hh-nn-ss',Now()),[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_DATETIME,FormatDateTime('dd-mm-yyyy-hh-nn-ss',Now()),[rfReplaceAll, rfIgnoreCase]);
 
-  Result := StringReplace(Result,C_MACRO_AUTHOR, TableString('MATTER','NMATTER',IntToStr(ANMatter),'AUTHOR'),[rfReplaceAll, rfIgnoreCase]);
-  if (ADocDescr <> '')  then
-     Result := StringReplace(Result,C_MACRO_DOCDESCR, ADocDescr ,[rfReplaceAll, rfIgnoreCase]);
-  if (pos(C_MACRO_DOCSEQUENCE,UpperCase(Result)) > 0) then
-     Result := StringReplace(Result,C_MACRO_DOCSEQUENCE, ProcString('getDocSequence',ANMatter),[rfReplaceAll, rfIgnoreCase]);
-  Result := StringReplace(Result,C_MACRO_USERINITIALS, dmConnection.UserID ,[rfReplaceAll, rfIgnoreCase]);
-  if ADocID > 0 then
-     Result := StringReplace(Result,C_MACRO_DOCID, IntToStr(ADocID),[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_AUTHOR, TableString('MATTER','NMATTER',IntToStr(ANMatter),'AUTHOR'),[rfReplaceAll, rfIgnoreCase]);
+   if (ADocDescr <> '')  then
+      Result := StringReplace(Result,C_MACRO_DOCDESCR, ADocDescr ,[rfReplaceAll, rfIgnoreCase]);
+   if (pos(C_MACRO_DOCSEQUENCE,UpperCase(Result)) > 0) then
+      Result := StringReplace(Result,C_MACRO_DOCSEQUENCE, ProcString('getDocSequence',ANMatter),[rfReplaceAll, rfIgnoreCase]);
+   Result := StringReplace(Result,C_MACRO_USERINITIALS, dmConnection.UserID ,[rfReplaceAll, rfIgnoreCase]);
+   if ADocID > 0 then
+      Result := StringReplace(Result,C_MACRO_DOCID, IntToStr(ADocID),[rfReplaceAll, rfIgnoreCase]);
 
-  if(Pos(C_MACRO_TEMPFILE,Result) > 0) then
-  begin
-    GetTempFileName(PChar(GTempPath),'axm',0,LBfr);
-    Result := StringReplace(Result,C_MACRO_TEMPFILE,String(LBfr),[rfReplaceAll, rfIgnoreCase]);
-  end;
+   if (Pos(C_MACRO_TEMPFILE,Result) > 0) then
+   begin
+      GetTempFileName(PChar(GTempPath),'axm',0,LBfr);
+      Result := StringReplace(Result,C_MACRO_TEMPFILE,String(LBfr),[rfReplaceAll, rfIgnoreCase]);
+   end;
 end;
 
 function TableString(Table, LookupField, LookupValue, ReturnField: string): string; overload;

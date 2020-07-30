@@ -196,7 +196,10 @@ end;
 
 procedure TfrmSaveDocDetails.FormShow(Sender: TObject);
 var
-   AMatter: string;
+   AMatter,
+   ALastMatter : string;
+   strArray    : TArray<String>;
+
 begin
    cmbAuthor.EditValue := dmConnection.UserCode;
    FromWord := False;
@@ -231,15 +234,17 @@ begin
    if Assigned(Fprop) then
    begin
       AMatter := Fprop.Value;
+      strArray     := AMatter.Split([',']);
+      ALastMatter := strArray[0];
       with dmConnection.qryCheckEmail do
       begin
          Close;
-         ParamByName('descr').AsString := FiMail.Subject;
+         ParamByName('email_subject').AsString := FiMail.Subject;
          ParamByName('D_CREATE').AsDateTime := FiMail.ReceivedTime;
-         ParamByName('fileid').AsString := AMatter;
+         ParamByName('fileid').AsString := ALastMatter;
          Open;
          if (FieldByName('rec_found').IsNull = False) then
-            Memo1.Text := 'Email already saved to BHL Insight in matter ' + AMatter
+            Memo1.Text := 'Email already saved to BHL Insight in matter(s): ' + AMatter
          else
             Memo1.Lines.Clear;
          Close;
@@ -278,6 +283,7 @@ begin
             exit;
          end;
       end;
+
       if (Memo1.Text <> '') then
       begin
          with Application do
@@ -290,6 +296,7 @@ begin
             end;
          end;
       end;
+
       if btnTxtDocPath.Text <> '' then
       begin
          try
@@ -358,7 +365,7 @@ begin
                            cmbAuthor.EditValue, txtDocName.Text,
                            '','',
                            -1, cmbPrecCategoryKeyValue, cmbClassificationKeyValue, cmbFolderKeyValue,
-                           '', edKeywords.Text,
+                           memoPrecDetails.Text, edKeywords.Text,
                            ReceivedDate, IMail, True, dmConnection.DocID,
                            chkCreateTime.Checked, memoTimeNarration.Text,
                            neUnits.Value, SentEmail, lTask);

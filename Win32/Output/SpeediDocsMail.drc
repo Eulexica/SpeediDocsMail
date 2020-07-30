@@ -5279,7 +5279,7 @@ BEGIN
 	dxSpreadSheetFunctionsStrs_sfnPhonetic,	L"PHONETIC"
 	dxSpreadSheetFunctionsStrs_sfnPhoneticDescription,	L"Extracts the phonetic (furigana) characters from a text string."
 	dxSpreadSheetFunctionsStrs_sfnProper,	L"PROPER"
-	dxSpreadSheetFunctionsStrs_sfnProperDescription,	L"Capitalizes the first letter in a text string any other letters that follow any non-letter character. Converts all other letters to lowercase."
+	dxSpreadSheetFunctionsStrs_sfnProperDescription,	L"Capitalizes the first letter in a text string and any other letters that follow any non-letter character. Converts all other letters to lowercase."
 	dxSpreadSheetFunctionsStrs_sfnReplace,	L"REPLACE"
 	dxSpreadSheetFunctionsStrs_sfnReplaceDescription,	L"Replaces a part of a text string with the specified text, based on the provided text size and character position. The single-byte version."
 	dxSpreadSheetFunctionsStrs_sfnReplaceB,	L"REPLACEB"
@@ -5319,9 +5319,9 @@ BEGIN
 	dxSpreadSheetFunctionsStrs_sfnExact,	L"EXACT"
 	dxSpreadSheetFunctionsStrs_sfnExactDescription,	L"Compares two text strings and returns TRUE if they are exactly the same, FALSE otherwise. EXACT is case-sensitive but ignores formatting differences. Use EXACT to test text being entered into a document."
 	dxSpreadSheetFunctionsStrs_sfnFind,	L"FIND"
-	dxSpreadSheetFunctionsStrs_sfnFindDescription,	L"FIND locates one text string within a second text string, and returns the number of the starting position of the first text string from the first character of the second text string. The single-byte version."
+	dxSpreadSheetFunctionsStrs_sfnFindDescription,	L"Locates one text string within a second text string, and returns the number of the starting position of the first text string from the first character of the second text string. The single-byte version."
 	dxSpreadSheetFunctionsStrs_sfnFindB,	L"FINDB"
-	dxSpreadSheetFunctionsStrs_sfnFindBDescription,	L"FINDB locates one text string within a second text string, and returns the number of the starting position of the first text string from the first character of the second text string. The double-byte version."
+	dxSpreadSheetFunctionsStrs_sfnFindBDescription,	L"Locates one text string within a second text string, and returns the number of the starting position of the first text string from the first character of the second text string. The double-byte version."
 	dxSpreadSheetFunctionsStrs_sfnSumX2PY2,	L"SUMX2PY2"
 	dxSpreadSheetFunctionsStrs_sfnSumX2PY2Description,	L"Sums the sums of the corresponding squared values in two specified arrays."
 	dxSpreadSheetFunctionsStrs_sfnSumXMY2,	L"SUMXMY2"
@@ -7025,65 +7025,65 @@ END
 /* c:\program files (x86)\embarcadero\studio\19.0\lib\Win32\release\Vcl.DBLogDlg.dfm */
 /* c:\program files (x86)\embarcadero\studio\19.0\lib\Win32\release\Vcl.DBPWDlg.dfm */
 /* c:\program files (x86)\embarcadero\studio\19.0\lib\Win32\release\dbctrls.res */
-/* C:\Program Files (x86)\Devart\UniDAC for RAD Studio 10.2\Lib\Win32\DBAccess.res */
+/* C:\Program Files (x86)\Devart\ODAC for RAD Studio 10.2\Lib\Win32\DBAccess.res */
 /* C:\Program Files (x86)\Devart\ODAC for RAD Studio 10.2\Lib\Win32\Ora.res */
 /* D:\Insight_XE4_Source\SpeediDocsMail\dmData.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressLibrary\Sources\dxOffice11.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressLibrary\Sources\dxSkinInfo.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressLibrary\Sources\cxLookAndFeelPainters.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressLibrary\Sources\cxControls.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\cxEdit.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\cxScrollCursors.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSkins Library\Sources\dxSkinOffice2013DarkGray.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressLibrary\Sources\dxOffice11.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressLibrary\Sources\dxSkinInfo.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressLibrary\Sources\cxLookAndFeelPainters.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressLibrary\Sources\cxControls.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\cxEdit.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\cxScrollCursors.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSkins Library\Sources\dxSkinOffice2013DarkGray.res */
 /* D:\Insight_XE4_Source\SpeediDocsMail\LoginDetails.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressLayout Control\Sources\dxLayoutEditForm.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressLayout Control\Sources\dxLayoutCustomizeForm.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressLibrary\Sources\dxShadowWindow.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressLayout Control\Sources\dxLayoutEditForm.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressLayout Control\Sources\dxLayoutCustomizeForm.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressLibrary\Sources\dxShadowWindow.res */
 /* c:\program files (x86)\embarcadero\studio\19.0\lib\Win32\release\extdlgs.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\dxCameraControlRes.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\dxCameraDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\cxImage.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\firtercontrolicons.RES */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\cxFilterDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\cxFilterControlDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetCore.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingIconSet.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\dxExpressionEditor.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressQuantumTreeList\Sources\cxTL.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\dxColorDialogForm.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetFormatXLSXReader.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetInplaceEdit.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetFormatODSReader.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetContainerCustomizationDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetUnhideSheetDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressEditors Library\Sources\cxFontNameComboBox.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetEditHyperlinkDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPasteSpecialDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPasswordDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetProtectSheetDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPopupMenu.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetCellsModificationDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetFindAndReplaceDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetProtectWorkbookDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressOfficeCore Library\Sources\dxCustomPreview.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPageSetupHeaderFooterDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPageSetupDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet\Sources\dxSpreadSheet.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetCellStyleEditDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingDataBarRuleStyleEditDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingRuleEditDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingRulesManagerDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressSpreadSheet Core\Sources\cxDataControllerConditionalFormattingRulesManagerDialog.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressQuantumGrid\Sources\cxGrid.res */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressQuantumGrid\Sources\cxGridViewLayoutCustomizationForm.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressQuantumGrid\Sources\cxGridLayoutViewCustomizationForm.dfm */
-/* C:\Program Files (x86)\DevExpress VCL\ExpressQuantumGrid\Sources\cxGridTableViewInplaceEditFormCustomizationForm.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\dxCameraControlRes.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\dxCameraDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\cxImage.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\firtercontrolicons.RES */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\cxFilterDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\cxFilterControlDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetCore.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingIconSet.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\dxExpressionEditor.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressQuantumTreeList\Sources\cxTL.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\dxColorDialogForm.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetFormatXLSXReader.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetInplaceEdit.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetFormatODSReader.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetContainerCustomizationDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetUnhideSheetDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressEditors Library\Sources\cxFontNameComboBox.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetEditHyperlinkDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPasteSpecialDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPasswordDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetProtectSheetDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPopupMenu.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetCellsModificationDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetFindAndReplaceDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetProtectWorkbookDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressOfficeCore Library\Sources\dxCustomPreview.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPageSetupHeaderFooterDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheetPageSetupDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet\Sources\dxSpreadSheet.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetCellStyleEditDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingDataBarRuleStyleEditDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingRuleEditDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\dxSpreadSheetConditionalFormattingRulesManagerDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressSpreadSheet Core\Sources\cxDataControllerConditionalFormattingRulesManagerDialog.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressQuantumGrid\Sources\cxGrid.res */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressQuantumGrid\Sources\cxGridViewLayoutCustomizationForm.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressQuantumGrid\Sources\cxGridLayoutViewCustomizationForm.dfm */
+/* C:\Program Files (x86)\DevExpress\VCL\ExpressQuantumGrid\Sources\cxGridTableViewInplaceEditFormCustomizationForm.dfm */
 /* D:\Insight_XE4_Source\SpeediDocsMail\MatterSearch.dfm */
 /* c:\program files (x86)\embarcadero\studio\19.0\lib\Win32\release\dbgrids.res */
 /* D:\Insight_XE4_Source\SpeediDocsMail\GenericSearch.dfm */
 /* D:\Insight_XE4_Source\SpeediDocsMail\SaveDoc.dfm */
-/* D:\jcl\jcl\lib\d25\win32\JclUnicode.res */
-/* D:\jcl\jvcl\Resources\JvConsts.res */
+/* C:\jcl\lib\d25\win32\JclUnicode.res */
+/* C:\jvcl\Resources\JvConsts.res */
 /* D:\Insight_XE4_Source\SpeediDocsMail\SavedocDetails.dfm */
 /* D:\Insight_XE4_Source\SpeediDocsMail\NewFee.dfm */
 /* D:\Insight_XE4_Source\SpeediDocsMail\DocList.dfm */

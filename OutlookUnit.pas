@@ -14,6 +14,9 @@ const
    METHOD = 'http://schemas.microsoft.com/mapi/proptag/0x37050003';
    FLAGS = 'http://schemas.microsoft.com/mapi/proptag/0x37140003';
 
+   // OS version array used when saving documents
+   CheckOSVersion: array[0..5] of string = ('Windows 8', 'Windows 10', 'Windows Server 2012', 'Windows Server 2008 R2', 'Windows Server 2016', 'Windows Server 2019');
+
    function SaveOutlookMessage(DocSequence: string; rgStorageItemIndex: integer; ATxtDocPath: string;
                       ANewCopy, AOverwrite: boolean; AFileID, AAuthor, ADocName: string;
                       AWorkflowType, ATemplateType: string;
@@ -203,6 +206,7 @@ begin
          finally
             FPropPrev := nil;
          end;
+
          FProp := FMail.UserProperties.Find('MATTER', True);
          if FProp = nil then
          begin
@@ -225,8 +229,7 @@ begin
          OldDocName := tmpdir + ExtractFileName(AParsedDocName);
          FMail.SaveAs(OldDocName ,olMSG);
 
-         if (TOSVersion.Name = 'Windows 8') or (TOSVersion.Name = 'Windows Server 2012') or
-            (TOSVersion.Major = 10) or (TOSVersion.Name = 'Windows 10') then
+         if MatchText(TOSVersion.Name, CheckOSVersion) then
             ADocumentSaved := CopyFileIFileOperationForceDirectories(OldDocName, AParsedDocName, True)
          else
             ADocumentSaved := WriteFileToDisk(AParsedDocName, OldDocName, True);
@@ -252,14 +255,17 @@ begin
                dmConnection.qryMatterAttachments.FieldByName('D_CREATE').AsDateTime := AReceivedDate;
 
             dmConnection.qryMatterAttachments.FieldByName('IMAGEINDEX').AsInteger := 4;
-            dmConnection.qryMatterAttachments.FieldByName('DOC_NAME').AsString := ExtractFileName(AParsedDocName);
-            dmConnection.qryMatterAttachments.FieldByName('DESCR').AsString := FMail.Subject; //ADocName;
+            dmConnection.qryMatterAttachments.FieldByName('DOC_NAME').AsString := ADocName;   //ExtractFileName(AParsedDocName);
+            dmConnection.qryMatterAttachments.FieldByName('DESCR').AsString := ADocName;
             dmConnection.qryMatterAttachments.FieldByName('SEARCH').AsString := ExtractFileName(AParsedDocName);   //ADocName;
             dmConnection.qryMatterAttachments.FieldByName('FILE_EXTENSION').AsString := Copy(ExtractFileExt(AParsedDocName),2, Length(ExtractFileExt(AParsedDocName)));
-            dmConnection.qryMatterAttachments.FieldByName('precedent_details').AsString := ADocName;
+            dmConnection.qryMatterAttachments.FieldByName('DOC_NOTES').AsString := APrecedentDescr;
             dmConnection.qryMatterAttachments.FieldByName('KEYWORDS').AsString := AKeywords;
             dmConnection.qryMatterAttachments.FieldByName('EMAIL_FROM').AsString := lEmailFrom;
             dmConnection.qryMatterAttachments.FieldByName('EMAIL_SENT_TO').AsString := lEmailTo;
+            dmConnection.qryMatterAttachments.FieldByName('EMAIL_SUBJECT').AsString := FMail.Subject;
+
+
 
             if (APrec_Category > -1) then
                dmConnection.qryMatterAttachments.FieldByName('NPRECCATEGORY').AsInteger := APrec_Category
@@ -621,7 +627,7 @@ begin
 
 //               prop := 'http://schemas.microsoft.com/mapi/string/{00020329-0000-0000-C000-000000000046}/Matter';
 //               OleVariant(OutlookApp.ActiveInspector.CurrentItem).PropertyAccessor.SetProperty(prop,FileID);
-                 if prop = nil then
+ {                if prop = nil then
                  begin
                     if not Assigned(Prop) then
                       Prop := AMail.UserProperties.Add('MATTER', olText, False, 1);
@@ -632,7 +638,7 @@ begin
                     finally
                        Prop := nil;
                     end;
-                 end;
+                 end;  }
                  if AMail.Sent = False then
                      Sleep(200);
             end;
@@ -715,9 +721,9 @@ begin
    if Assigned(AMail) then
    begin
       try
-          prop := AMail.UserProperties.Find('MATTER', True);
-          if Assigned(prop) then
-              FileId := prop.Value;
+         prop := AMail.UserProperties.Find('MATTER', True);
+         if Assigned(prop) then
+            FileId := prop.Value;
       except
 //         on E: EExternalModuleException do
       end;
@@ -761,7 +767,7 @@ begin
             with dmConnection.qryCheckEmail do
             begin
                Close;
-               ParamByName('descr').AsString := sSubject;
+               ParamByName('email_subject').AsString := sSubject;
                ParamByName('D_CREATE').AsDateTime := AMail.ReceivedTime;
                ParamByName('fileid').AsString := FileID;
                Open;
