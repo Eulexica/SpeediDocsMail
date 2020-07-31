@@ -255,7 +255,7 @@ begin
                dmConnection.qryMatterAttachments.FieldByName('D_CREATE').AsDateTime := AReceivedDate;
 
             dmConnection.qryMatterAttachments.FieldByName('IMAGEINDEX').AsInteger := 4;
-            dmConnection.qryMatterAttachments.FieldByName('DOC_NAME').AsString := ADocName;   //ExtractFileName(AParsedDocName);
+            dmConnection.qryMatterAttachments.FieldByName('DOC_NAME').AsString := ExtractFileName(AParsedDocName);
             dmConnection.qryMatterAttachments.FieldByName('DESCR').AsString := ADocName;
             dmConnection.qryMatterAttachments.FieldByName('SEARCH').AsString := ExtractFileName(AParsedDocName);   //ADocName;
             dmConnection.qryMatterAttachments.FieldByName('FILE_EXTENSION').AsString := Copy(ExtractFileExt(AParsedDocName),2, Length(ExtractFileExt(AParsedDocName)));

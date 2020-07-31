@@ -645,7 +645,6 @@ begin
    end;
 end;
 
-
 procedure TfrmSaveDocDetails.btnEditMatterKeyPress(Sender: TObject;
   var Key: Char);
 var
