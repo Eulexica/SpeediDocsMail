@@ -297,7 +297,7 @@ object AddInModule: TAddInModule
       end>
     Id = 'adxRibbonTab89C0D1B19663457D961DDFAA8BCCDE45'
     Left = 37
-    Top = 14
+    Top = 15
     Ribbons = [msrOutlookMailRead, msrOutlookMailCompose, msrOutlookExplorer]
     Ribbons2010 = [msrOutlookExplorer2010]
   end

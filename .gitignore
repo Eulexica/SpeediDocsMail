@@ -21,5 +21,6 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
-__history\*
-SpeediDocsMail\
+__history/*
+SpeediDocsMail/
+__recovery/*

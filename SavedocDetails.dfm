@@ -555,7 +555,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
     object dxLayoutItem4: TdxLayoutItem
       Parent = dxLayoutControl1Group_Root
       CaptionOptions.AlignHorz = taRightJustify
-      CaptionOptions.Text = 'Doc Name'
+      CaptionOptions.Text = 'Description'
       Control = txtDocName
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19

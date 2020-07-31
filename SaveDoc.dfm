@@ -191,6 +191,7 @@ object dmSaveDoc: TdmSaveDoc
       '  DOC.EMAIL_SENT_TO,'
       '  DOC.FOLDER_ID,'
       '  DOC.EMAIL_SUBJECT,'
+      '  DOC.DOC_NOTES,'
       '  DOC.ROWID'
       'FROM'
       '  DOC'
