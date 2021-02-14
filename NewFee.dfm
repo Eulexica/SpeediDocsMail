@@ -27,12 +27,15 @@ object frmNewFee: TfrmNewFee
     TabOrder = 0
     Transparent = True
     AutoSize = True
+    LayoutLookAndFeel = dxLayoutSkinLookAndFeel1
     object lblMatterDesc: TLabel
       Left = 206
       Top = 12
       Width = 153
       Height = 33
       AutoSize = False
+      Color = 15790320
+      ParentColor = False
       WordWrap = True
     end
     object lblClient: TLabel
@@ -41,6 +44,8 @@ object frmNewFee: TfrmNewFee
       Width = 357
       Height = 15
       AutoSize = False
+      Color = 15790320
+      ParentColor = False
     end
     object BitBtn1: TBitBtn
       Left = 186
@@ -72,21 +77,16 @@ object frmNewFee: TfrmNewFee
         end>
       Properties.ListOptions.GridLines = glNone
       Properties.ListOptions.ShowHeader = False
+      Properties.ListOptions.SyncMode = True
       Properties.ListSource = dsFeeEarners
       Properties.OnChange = AuthorChange
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 2
       Width = 288
     end
     object mmoDesc: TcxMemo
       Left = 81
       Top = 171
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
       TabOrder = 4
       Height = 95
@@ -112,10 +112,7 @@ object frmNewFee: TfrmNewFee
           Kind = bkGlyph
         end>
       Properties.OnButtonClick = btnEditMatterPropertiesButtonClick
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
       TabOrder = 0
       OnExit = btnEditMatterExit
       Width = 118
@@ -126,18 +123,21 @@ object frmNewFee: TfrmNewFee
       Properties.KeyFieldNames = 'CODE'
       Properties.ListColumns = <
         item
+          MinWidth = 150
+          Width = 150
           FieldName = 'DESCR'
         end
         item
+          MinWidth = 50
+          Width = 50
           FieldName = 'BILLTYPE'
         end>
+      Properties.ListOptions.GridLines = glNone
+      Properties.ListOptions.ShowHeader = False
+      Properties.ListOptions.SyncMode = True
       Properties.ListSource = dsFeeBasisList
       Properties.OnCloseUp = cmbTemplatePropertiesCloseUp
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 3
       Width = 288
     end
@@ -153,11 +153,7 @@ object frmNewFee: TfrmNewFee
       Properties.ListOptions.ShowHeader = False
       Properties.ListOptions.SyncMode = True
       Properties.ListSource = dsEmpDept
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 9
       Width = 288
     end
@@ -169,15 +165,12 @@ object frmNewFee: TfrmNewFee
         item
           FieldName = 'CODE'
         end>
+      Properties.ListOptions.GridLines = glNone
       Properties.ListOptions.ShowHeader = False
       Properties.ListOptions.SyncMode = True
       Properties.ListSource = dsTaxType
       Properties.OnChange = cbTaxTypePropertiesChange
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 8
       Width = 288
     end
@@ -186,10 +179,8 @@ object frmNewFee: TfrmNewFee
       Top = 273
       Properties.Alignment.Horz = taRightJustify
       Properties.SpinButtons.Visible = False
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
+      Properties.OnChange = neUnitsPropertiesChange
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
       TabOrder = 5
       Value = 1
       Width = 33
@@ -200,10 +191,7 @@ object frmNewFee: TfrmNewFee
       Properties.Alignment.Horz = taRightJustify
       Properties.SpinButtons.Visible = False
       Properties.ValueType = vtFloat
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
       TabOrder = 6
       Width = 62
     end
@@ -213,47 +201,36 @@ object frmNewFee: TfrmNewFee
       Properties.Alignment.Horz = taRightJustify
       Properties.SpinButtons.Visible = False
       Properties.ValueType = vtFloat
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
       TabOrder = 7
       Width = 100
     end
     object neTax: TcxSpinEdit
       Left = 81
       Top = 363
+      Enabled = False
       Properties.Alignment.Horz = taRightJustify
       Properties.SpinButtons.Visible = False
       Properties.ValueType = vtFloat
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
       TabOrder = 10
       Width = 81
     end
     object neMinutes: TcxSpinEdit
       Left = 81
       Top = 393
+      Enabled = False
       Properties.Alignment.Horz = taRightJustify
       Properties.SpinButtons.Visible = False
       Properties.ValueType = vtFloat
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
       TabOrder = 11
       Width = 65
     end
     object dtpCreated: TcxDateEdit
       Left = 81
       Top = 81
-      Style.BorderColor = clWindowFrame
-      Style.BorderStyle = ebs3D
       Style.HotTrack = False
-      Style.ButtonStyle = bts3D
-      Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 1
       Width = 137
     end
@@ -299,7 +276,7 @@ object frmNewFee: TfrmNewFee
       Parent = dxLayoutGroup3
       CaptionOptions.Text = 'Matter:'
       Control = btnEditMatter
-      ControlOptions.OriginalHeight = 24
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 118
       ControlOptions.ShowBorder = False
       Index = 0
@@ -365,6 +342,7 @@ object frmNewFee: TfrmNewFee
     end
     object dxLayoutItem6: TdxLayoutItem
       Parent = dxLayoutGroup5
+      CaptionOptions.AlignVert = tavTop
       CaptionOptions.Text = 'Description:'
       Control = mmoDesc
       ControlOptions.OriginalHeight = 95
@@ -420,11 +398,11 @@ object frmNewFee: TfrmNewFee
     end
     object dxLayoutItem11: TdxLayoutItem
       Parent = dxLayoutGroup2
-      CaptionOptions.Text = 'Department'
       SizeOptions.AssignedValues = [sovSizableHorz, sovSizableVert]
       SizeOptions.SizableHorz = False
       SizeOptions.SizableVert = False
       SizeOptions.Width = 304
+      CaptionOptions.Text = 'Department'
       Control = cbDept
       ControlOptions.AutoControlAreaAlignment = False
       ControlOptions.OriginalHeight = 23
@@ -440,6 +418,7 @@ object frmNewFee: TfrmNewFee
       ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 81
       ControlOptions.ShowBorder = False
+      Enabled = False
       Index = 6
     end
     object dxLayoutGroup7: TdxLayoutGroup
@@ -463,6 +442,7 @@ object frmNewFee: TfrmNewFee
       ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 65
       ControlOptions.ShowBorder = False
+      Enabled = False
       Index = 0
     end
     object dxLayoutItem14: TdxLayoutItem
@@ -530,7 +510,6 @@ object frmNewFee: TfrmNewFee
       end>
     ParentFont = True
     UseSystemFont = False
-    ExplicitWidth = 779
   end
   object qryMRUList: TOraQuery
     Session = dmSaveDoc.orsInsight
@@ -706,5 +685,15 @@ object frmNewFee: TfrmNewFee
         Name = 'p_nmatter'
         Value = nil
       end>
+  end
+  object dxLayoutLookAndFeelList1: TdxLayoutLookAndFeelList
+    Left = 32
+    Top = 16
+    object dxLayoutSkinLookAndFeel1: TdxLayoutSkinLookAndFeel
+      LookAndFeel.Kind = lfStandard
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2019Colorful'
+      PixelsPerInch = 96
+    end
   end
 end

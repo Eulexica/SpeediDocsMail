@@ -10,7 +10,7 @@ uses
   cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
   cxDBLookupComboBox,SaveDoc, cxMemo, cxButtonEdit, dxLayoutcxEditAdapters, dxLayoutContainer,
   dxLayoutControlAdapters, cxClasses, dxLayoutControl,
-  cxSpinEdit, dxCore, cxDateUtils, cxCalendar;
+  cxSpinEdit, dxCore, cxDateUtils, cxCalendar, dxLayoutLookAndFeels;
 
 type
   TfrmNewFee = class(TForm)
@@ -76,6 +76,8 @@ type
     neTax: TcxSpinEdit;
     neMinutes: TcxSpinEdit;
     dtpCreated: TcxDateEdit;
+    dxLayoutLookAndFeelList1: TdxLayoutLookAndFeelList;
+    dxLayoutSkinLookAndFeel1: TdxLayoutSkinLookAndFeel;
     procedure FormShow(Sender: TObject);
     procedure cbAuthorChange(Sender: TObject);
     procedure AuthorChange(Sender: TObject);
@@ -89,6 +91,7 @@ type
       AButtonIndex: Integer);
     procedure cbTaxTypePropertiesChange(Sender: TObject);
     procedure cmbTemplatePropertiesCloseUp(Sender: TObject);
+    procedure neUnitsPropertiesChange(Sender: TObject);
   private
     { Private declarations }
     DefaultTax : String;
@@ -197,6 +200,8 @@ begin
       cbAuthorChange(Self);
 //      cbTaxTypeChange(Self);
       mmoDesc.Text := sSubject;
+      if (nUnits = '0') then
+         nUnits := '1';
       neUnits.Text := nUnits;
    except
 //      Application.MessageBox('Could not connect to Insight database6','Insight');
@@ -205,6 +210,11 @@ begin
 end;
 
 procedure TfrmNewFee.neUnitsChange(Sender: TObject);
+begin
+   UpdateAmount;
+end;
+
+procedure TfrmNewFee.neUnitsPropertiesChange(Sender: TObject);
 begin
    UpdateAmount;
 end;
@@ -355,56 +365,59 @@ var
 begin
    if (SystemInteger('TIME_UNITS') > 0) then
    begin
-      if ((dxLayoutItem7.CaptionOptions.Text = 'Units') or (cmbTemplate.Text = '') or
-         (TableCurrency('SCALECOST','CODE',string(cmbTemplate.EditValue), 'RATE') = 0)) then
+      if (length(neUnits.Text) > 0) then
       begin
-         try
-            neAmount.Value := StrToInt(neUnits.Text) * neRate.Value / (60 / SystemInteger('TIME_UNITS'));
-         except
-            neAmount.Value := 0.00;
+         if ((dxLayoutItem7.CaptionOptions.Text = 'Units') or (cmbTemplate.Text = '') or
+            (TableCurrency('SCALECOST','CODE',string(cmbTemplate.EditValue), 'RATE') = 0)) then
+         begin
+            try
+               neAmount.Value := StrToInt(neUnits.Text) * neRate.Value / (60 / SystemInteger('TIME_UNITS'));
+            except
+               neAmount.Value := 0.00;
+            end;
+            try
+               neMinutes.Text := IntToStr(StrToInt(neUnits.Text) * SystemInteger('TIME_UNITS'));
+            except
+               neMinutes.Text := '0';
+            end;
+         end
+         else if (dxLayoutItem7.CaptionOptions.Text = 'Mins') or (cmbTemplate.Text = '') or
+                 (TableCurrency('SCALECOST','CODE',string(cmbTemplate.EditValue), 'RATE') = 0) then
+         begin
+            try
+               neAmount.Value := StrToInt(neUnits.Text) * neRate.Value / 60;
+            except
+               neAmount.Value := 0.00;
+            end;
+            try
+               neMinutes.Text := neUnits.Text;
+            except
+               neMinutes.Text := '0';
+            end;
+         end
+         else if (dxLayoutItem7.CaptionOptions.Text = 'Item') and (string(cmbTemplate.EditValue) <> '') then
+         begin
+            try
+//               neAmount.Value := StrToInt(dfItems.Text) * neRate.Value;
+            except
+               neAmount.Value := 0.00;
+            end;
+            try
+               neMinutes.Text := IntToStr(StrToInt(neUnits.Text) * SystemInteger('TIME_UNITS'));
+            except
+               neMinutes.Text := '0';
+            end;
+         end
+         else
+         begin
+            try
+               neAmount.Value := StrToInt(neUnits.Text) * neRate.Value;
+            except
+               neAmount.Value := 0.00;
+            end;
          end;
-         try
-            neMinutes.Text := IntToStr(StrToInt(neUnits.Text) * SystemInteger('TIME_UNITS'));
-         except
-            neMinutes.Text := '0';
-         end;
-      end
-      else if (dxLayoutItem7.CaptionOptions.Text = 'Mins') or (cmbTemplate.Text = '') or
-              (TableCurrency('SCALECOST','CODE',string(cmbTemplate.EditValue), 'RATE') = 0) then
-      begin
-         try
-            neAmount.Value := StrToInt(neUnits.Text) * neRate.Value / 60;
-         except
-            neAmount.Value := 0.00;
-         end;
-         try
-            neMinutes.Text := neUnits.Text;
-         except
-            neMinutes.Text := '0';
-         end;
-      end
-      else if (dxLayoutItem7.CaptionOptions.Text = 'Item') and (string(cmbTemplate.EditValue) <> '') then
-      begin
-         try
-//            neAmount.Value := StrToInt(dfItems.Text) * neRate.Value;
-         except
-            neAmount.Value := 0.00;
-         end;
-         try
-            neMinutes.Text := IntToStr(StrToInt(neUnits.Text) * SystemInteger('TIME_UNITS'));
-         except
-            neMinutes.Text := '0';
-         end;
-      end
-      else
-      begin
-         try
-            neAmount.Value := StrToInt(neUnits.Text) * neRate.Value;
-         except
-            neAmount.Value := 0.00;
-         end;
+         CalcTax;
       end;
-      CalcTax;
    end
    else
    begin
@@ -447,6 +460,10 @@ begin
 end;
 
 procedure TfrmNewFee.btnEditMatterExit(Sender: TObject);
+var
+   lsAuthor,
+   sScaleZeroFee : String;
+   cScaleAmount: Double;
 begin
    if string(btnEditMatter.Text) <> '' then
    begin
@@ -457,17 +474,32 @@ begin
          MessageDlg('Invalid Matter Number', mtWarning, [mbOk], 0)
       else
       begin
+         if length(cmbTemplate.Text) > 0 then
+         begin
+            cScaleAmount :=  TableCurrency('SCALECOST','CODE',string(cmbTemplate.EditValue),'AMOUNT');
+            sScaleZeroFee := TableString('SCALECOST','CODE',string(cmbTemplate.EditValue),'ZERO_FEE');
+         end;
+
          nMatter := dmConnection.qryGetMatter.FieldByName('NMATTER').AsInteger;
          FFileID := string(btnEditMatter.Text);
          lblClient.Caption := MatterString(btnEditMatter.Text, 'TITLE');
          lblMatterDesc.Caption := MatterString(btnEditMatter.Text, 'SHORTDESCR');
          cbDept.EditValue := MatterString(btnEditMatter.Text, 'DEPT');
-     end;
+         if (cmbTemplate.Text = '') or ((cScaleAmount <> 0) and (sScaleZeroFee = 'N')) then
+            neRate.Value := FeeRate('N', btnEditMatter.Text, String(cbAuthor.EditValue), dtpCreated.Date)
+         else if (FFileID <> btnEditMatter.Text) then
+            neRate.Value := FeeRate('N', btnEditMatter.Text, String(cbAuthor.EditValue), dtpCreated.Date);
+         UpdateAmount;
+      end;
    end;
 end;
 
 procedure TfrmNewFee.btnEditMatterPropertiesButtonClick(Sender: TObject;
   AButtonIndex: Integer);
+var
+   lsAuthor,
+   sScaleZeroFee : String;
+   cScaleAmount: Double;
 begin
    frmMtrSearch :=TfrmMtrSearch.Create(nil);
    try
@@ -481,6 +513,18 @@ begin
          lblClient.Caption := MatterString(btnEditMatter.Text, 'TITLE');
          lblMatterDesc.Caption := MatterString(btnEditMatter.Text, 'SHORTDESCR');
          cbDept.EditValue := MatterString(btnEditMatter.Text, 'DEPT');
+
+         if length(cmbTemplate.Text) > 0 then
+         begin
+            cScaleAmount :=  TableCurrency('SCALECOST','CODE',string(cmbTemplate.EditValue),'AMOUNT');
+            sScaleZeroFee := TableString('SCALECOST','CODE',string(cmbTemplate.EditValue),'ZERO_FEE');
+         end;
+
+         if (cmbTemplate.Text = '') or ((cScaleAmount <> 0) and (sScaleZeroFee = 'N')) then
+            neRate.Value := FeeRate('N', btnEditMatter.Text, String(cbAuthor.EditValue), dtpCreated.Date)
+         else if (FFileID <> btnEditMatter.Text) then
+            neRate.Value := FeeRate('N', btnEditMatter.Text, String(cbAuthor.EditValue), dtpCreated.Date);
+         UpdateAmount;
       end;
    finally
       frmMtrSearch.Free;
@@ -505,15 +549,94 @@ begin
    begin
       cbDept.EditValue := TableString('EMPLOYEE', 'CODE', String(cbAuthor.EditValue), 'DEPT'); //qFeeEarners.FieldValues['DEPT'];
    end;
-//   if (cmbTemplate.Text = '') then
-      CalcRate;
+   if (cmbTemplate.Text <> '') then
+      CreateScale(FFileID,0, cmbTemplate.EditValue, False);
+   CalcRate;
 end;
 
 procedure TfrmNewFee.CreateScale(AsMatter: String; ANMatter: Integer; AScaleCode: String; bNewFee: Boolean);
 var
    LabelDesc: string;
+   bRateItem: boolean;
 begin
+   bRateItem := False;
    if bNewFee then DisplayMatter(AsMatter);
+   qryScaleCost.close;
+   qryScaleCost.ParambyName('p_code').AsString := AScaleCode;
+   qryScaleCost.Open();
+   try
+      bRateItem := ((qryScaleCost.FieldByName('RATE').AsCurrency <> 0) and
+                    (qryScaleCost.FieldByName('DEFAULTTIME').AsInteger <> 0));
+      LabelDesc := trim(qryScaleCost.FieldByName('UNIT').AsString);
+//      neItem.Visible := False;
+//      cmbTemplate.EditValue := AScaleCode;
+      ScaleCode := AScaleCode;
+      if trim(mmoDesc.Text) = '' then
+         mmoDesc.Text := qryScaleCost.FieldByName('DESCR').AsString;
+//      if LabelDesc <> '' then
+//         lblUnits.Caption := LabelDesc;
+      if bRateItem then
+      begin
+         neRate.Value := FeeRate('N', btnEditMatter.Text, String(cbAuthor.EditValue), dtpCreated.Date);  //qryScaleCost.FieldByName('RATE').AsCurrency;
+//         neTimeAmount.Value := qryScaleCost.FieldByName('RATE').AsCurrency;
+//         neTimeRate.Value := FeeRate('N', cmbMatterFind.Text, String(cbAuthor.EditValue), dtpCreated.Date);
+//         dfItems.Enabled := (LabelDesc <> '');
+//         neItem.Visible := True;
+         if cmbTemplate.Text <> '' then
+         begin
+//            if dfItems.Enabled then
+//               dfItems.Text := '1'
+//            else
+//               dfItems.Text := '0';
+         end;
+      end
+      else
+      if qryScaleCost.FieldByName('AMOUNT').AsCurrency > 0 then
+      begin
+         neAmount.Value := qryScaleCost.FieldByName('AMOUNT').AsCurrency;
+         neRate.Value := qryScaleCost.FieldByName('AMOUNT').AsCurrency;
+//         dfItems.Enabled := False;
+      end
+      else
+      begin
+         if qryScaleCost.FieldByName('RATE').AsCurrency > 0 then
+         begin
+            neRate.Value := qryScaleCost.FieldByName('RATE').AsCurrency;
+ //           neItem.Value := qryScaleCost.FieldByName('RATE').AsCurrency;
+//            dfItems.Enabled := (LabelDesc <> '');
+            if cmbTemplate.Text <> '' then
+            begin
+//               if dfItems.Enabled then
+//                  dfItems.Text := '1'
+//               else
+//                  dfItems.Text := '0';
+            end;
+//            UpdateAmount;
+         end;
+      end;
+
+      if qryScaleCost.FieldByName('ZERO_FEE').AsString = 'N' then
+      begin
+         UpdateAmount;
+         ScaleAmount := neAmount.Value;
+//         if neItem.Value <> 0 then
+//            CalcTax(neItem.Value)
+//         else
+            CalcTax;
+      end
+      else
+      begin
+         neAmount.Value := 0;
+         neRate.Value := 0;
+         neTax.Value := 0;
+      end;
+   finally
+//      qryScaleCost.Close();
+   end;
+
+//////
+
+{   if bNewFee then DisplayMatter(AsMatter);
    qryScaleCost.close;
    qryScaleCost.ParambyName('p_code').AsString := AScaleCode;
    qryScaleCost.Open();
@@ -560,7 +683,7 @@ begin
       end;
    finally
 //      qryScaleCost.Close();
-   end;
+   end;    }
 end;
 
 

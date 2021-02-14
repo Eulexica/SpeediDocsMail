@@ -6,8 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Registry, SpeediDocsMail_IMPL, Vcl.ComCtrls, SaveDocFunc,
   Vcl.Buttons, cxGraphics, cxControls, cxLookAndFeels,
-  cxLookAndFeelPainters, cxContainer, cxEdit, cxCheckBox, dxSkinsCore,
-  dxSkinOffice2013DarkGray;
+  cxLookAndFeelPainters, cxContainer, cxEdit, cxCheckBox;
 
 type
   TfrmLoginSetup = class(TForm)
