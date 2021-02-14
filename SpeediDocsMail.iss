@@ -1,5 +1,5 @@
 #define AppName "{543CFF7F-8DE9-4797-AEDF-83DCD6C3E8D7}"
-#define AppVersion "4.0.0.25"
+#define AppVersion "4.0.0.26"
 
 
 
@@ -7,7 +7,7 @@
 AppName                = SpeediDocsMail
 AppVerName             = SpeediDocsMail {#AppVersion}
 OutputBaseFilename     = SpeediDocsMail
-DefaultDirName         = {commonpf32}\SpeediDocs
+DefaultDirName         = {commonpf}\SpeediDocs
 OutputDir              = _Setup
 AppPublisher           = Bramcote Holdings Pty Ltd
 AppSupportURL          = http:\\support.bhlinsight.com
@@ -38,7 +38,7 @@ Source: Styles\BlueGraphite.vsf; DestDir: {app}; Flags: dontcopy
 
 ; Add-in dll
 Source: "Win32\output\SpeediDocsMail.dll";                    DestDir: "{app}"; Flags: regserver; Check: not IsOutlook64bit
-; Source: "Win64\SpeediDocs.dll";                               DestDir: "{app}"; Flags: regserver; Check: IsOutlook64bit
+Source: "Win64\output\SpeediDocsMail.dll";                    DestDir: "{app}"; Flags: regserver; Check: IsOutlook64bit
 Source: "gdiplus.dll";                                        DestDir: "{app}"; Flags: ignoreversion
 Source: "SpeediDocsMail.ini";                                 DestDir: "{app}";
 Source: "IntResource.dll";                                    DestDir: "{app}"; Flags: ignoreversion
@@ -95,7 +95,16 @@ begin
   // Windows x64
   if IsWin64 then 
   begin
-    // Office 2010
+    // Office 2019
+      if RegValueExists(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Office\16.0\Outlook', 'Bitness') then
+      begin
+          if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Office\16.0\Outlook', 'Bitness', bitness) then
+          begin
+            Result := bitness = 'x64';
+            Exit;
+          end;
+      end
+      else
       // Outlook 2010 x64
       if RegValueExists(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Office\14.0\Outlook', 'Bitness') then
       begin

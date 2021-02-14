@@ -350,10 +350,10 @@ var
    s: widestring;
 begin
    try
-      if Assigned(fmNewFee) then
+{      if fmNewFee <> nil then
       begin
          FreeAndNil(fmNewFee);
-      end;
+      end; }
 
       try
          folder := OutlookApp.ActiveExplorer.CurrentFolder; //ol2010.GetNamespace('MAPI').GetDefaultFolder(olFolderCalendar);
@@ -668,7 +668,8 @@ begin
          end;
 
          try
-            FreeAndNil(fmSaveDocDetails);
+//            if Assigned(fmSaveDocDetails) then
+//               FreeAndNil(fmSaveDocDetails);
             fmSaveDocDetails := TfrmSaveDocDetails.Create(nil);
 
             fmSaveDocDetails.AppType := LAppType;

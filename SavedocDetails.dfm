@@ -4,7 +4,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
   AlphaBlendValue = 245
   BorderStyle = bsDialog
   Caption = 'SpeediDocsMail  Save'
-  ClientHeight = 711
+  ClientHeight = 680
   ClientWidth = 528
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -58,7 +58,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
   TextHeight = 13
   object StatusBar: TStatusBar
     Left = 0
-    Top = 692
+    Top = 661
     Width = 528
     Height = 19
     BorderWidth = 2
@@ -73,7 +73,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
     Left = 0
     Top = 0
     Width = 528
-    Height = 692
+    Height = 661
     Align = alClient
     ParentBackground = True
     TabOrder = 1
