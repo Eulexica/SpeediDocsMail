@@ -1,0 +1,1 @@
+RwEasyMAPI64.exe /regserver

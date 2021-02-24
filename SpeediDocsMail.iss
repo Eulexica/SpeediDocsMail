@@ -43,7 +43,8 @@ Source: "gdiplus.dll";                                        DestDir: "{app}"; 
 Source: "SpeediDocsMail.ini";                                 DestDir: "{app}";
 Source: "IntResource.dll";                                    DestDir: "{app}"; Flags: ignoreversion
 Source: "IntResource64.dll";                                  DestDir: "{app}"; Flags: ignoreversion
-;Source: "register_dll.bat";                                   DestDir: "{app}"; Flags: deleteafterinstall
+Source: "RwEasyMAPI64.exe";                                   DestDir: "{app}"; Check: IsOutlook64bit
+Source: "register_EMAPI.bat";                                 DestDir: "{app}"; Flags: deleteafterinstall
 
 ; Add the ISSkin DLL used for skinning Inno Setup installations.
 ;Source: ISSkin.dll; DestDir: {app}; Flags: dontcopy
@@ -52,7 +53,7 @@ Source: "IntResource64.dll";                                  DestDir: "{app}"; 
 ;Source: Office2007.cjstyles; DestDir: {tmp}; Flags: dontcopy 
 
 [Run]
-;Filename: "register_dll.bat"; WorkingDir: "{app}"; StatusMsg: "Registering SpeediDocsMail....."; Flags: runhidden;
+Filename: "register_EMAPI.bat"; WorkingDir: "{app}"; StatusMsg: "Registering EasyMAPI 64bit file....."; Flags: runhidden; Check: IsOutlook64bit;
 
 [UninstallRun]
 Filename: "{sys}\Regsvr32.exe"; Parameters: " /u/s SpeediDocsMail.dll"; WorkingDir: "{app}"; StatusMsg: "UnRegistering SpeediDocsMail..."; Flags: runhidden;
