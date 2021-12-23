@@ -75,10 +75,10 @@ type
     FUserDept: string;
     FAttDocID: string;
     FSecureMatterAccess: string;
+    FVerNumber: string;
 
     function GetUserCode: string;
   	 property SecureMatterAccess: string read FSecureMatterAccess write FSecureMatterAccess;
-
 
   public
     { Public declarations }
@@ -90,6 +90,7 @@ type
     property UserDept: string read FUserDept write FUserDept;
     property UserCode: string read GetUserCode;
     property AttDocID  : string read FAttDocID write FAttDocID;
+    property VerNumber: string read FVerNumber write FVerNumber;
 
 
     function GetUserID: boolean;
@@ -158,7 +159,7 @@ begin
 
               end;
    else
-      MessageDlg('Insight Database Error:'#13#10 + e.Message, mtError, [mbOK], 0);
+      MessageDlg('Database Error:'#13#10 + e.Message, mtError, [mbOK], 0);
    end;
 end;
 

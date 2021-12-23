@@ -4,7 +4,7 @@ object frmMtrSearch: TfrmMtrSearch
   ActiveControl = grdMatters
   BorderIcons = [biSystemMenu]
   Caption = 'Matter Search'
-  ClientHeight = 554
+  ClientHeight = 564
   ClientWidth = 795
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -24,9 +24,10 @@ object frmMtrSearch: TfrmMtrSearch
     Left = 0
     Top = 0
     Width = 795
-    Height = 510
+    Height = 518
     Align = alClient
     TabOrder = 0
+    ExplicitHeight = 505
     object tvMatters: TcxGridDBTableView
       OnDblClick = gridMattersDblClick
       Navigator.Buttons.CustomButtons = <>
@@ -104,42 +105,46 @@ object frmMtrSearch: TfrmMtrSearch
   end
   object Panel1: TPanel
     Left = 0
-    Top = 510
+    Top = 518
     Width = 795
-    Height = 44
+    Height = 46
     Align = alBottom
+    ParentColor = True
     TabOrder = 1
+    DesignSize = (
+      795
+      46)
     object Label1: TLabel
       Left = 7
-      Top = 0
+      Top = 1
       Width = 87
       Height = 15
       Caption = 'Search for Client'
     end
     object Label2: TLabel
       Left = 183
-      Top = 0
+      Top = 1
       Width = 74
       Height = 15
       Caption = 'Search for File'
     end
     object tbClientSearch: TcxTextEdit
       Left = 7
-      Top = 18
+      Top = 19
       Properties.OnChange = tbClientSearchPropertiesChange
       TabOrder = 0
       Width = 118
     end
     object tbFileSearch: TcxTextEdit
       Left = 183
-      Top = 18
+      Top = 19
       Properties.OnChange = tbFileSearchPropertiesChange
       TabOrder = 1
       Width = 118
     end
     object cbShowRecentlyAccessed: TcxCheckBox
       Left = 370
-      Top = 18
+      Top = 19
       Caption = 'Recently Accessed Matters'
       TabOrder = 2
       Transparent = True
@@ -147,9 +152,10 @@ object frmMtrSearch: TfrmMtrSearch
     end
     object btnOk: TcxButton
       Left = 631
-      Top = 14
+      Top = 15
       Width = 73
-      Height = 25
+      Height = 27
+      Anchors = [akRight, akBottom]
       Caption = 'OK'
       Default = True
       ModalResult = 1
@@ -193,9 +199,10 @@ object frmMtrSearch: TfrmMtrSearch
     end
     object btnCancel: TcxButton
       Left = 715
-      Top = 14
+      Top = 15
       Width = 73
-      Height = 25
+      Height = 27
+      Anchors = [akRight, akBottom]
       Cancel = True
       Caption = 'Cancel'
       ModalResult = 2
