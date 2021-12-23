@@ -2,8 +2,8 @@ object frmGenericSearch: TfrmGenericSearch
   Left = 619
   Top = 211
   Caption = 'Code Selection'
-  ClientHeight = 531
-  ClientWidth = 550
+  ClientHeight = 578
+  ClientWidth = 630
   Color = clBtnFace
   Constraints.MinHeight = 475
   Constraints.MinWidth = 413
@@ -23,12 +23,14 @@ object frmGenericSearch: TfrmGenericSearch
   object dbgrLookup: TcxGrid
     Left = 0
     Top = 0
-    Width = 550
-    Height = 483
+    Width = 630
+    Height = 530
     Align = alClient
     TabOrder = 0
     LookAndFeel.Kind = lfFlat
     LookAndFeel.NativeStyle = True
+    ExplicitWidth = 550
+    ExplicitHeight = 483
     object tvLookup: TcxGridDBTableView
       OnDblClick = dbgrLookupDblClick
       Navigator.Buttons.CustomButtons = <>
@@ -145,15 +147,17 @@ object frmGenericSearch: TfrmGenericSearch
   end
   object Panel1: TPanel
     Left = 0
-    Top = 483
-    Width = 550
+    Top = 530
+    Width = 630
     Height = 48
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
+    ParentColor = True
     TabOrder = 1
+    ExplicitTop = 536
     DesignSize = (
-      550
+      630
       48)
     object Label8: TLabel
       Left = 6
@@ -199,7 +203,7 @@ object frmGenericSearch: TfrmGenericSearch
       Width = 84
     end
     object btnOk: TcxButton
-      Left = 382
+      Left = 462
       Top = 16
       Width = 80
       Height = 27
@@ -295,9 +299,10 @@ object frmGenericSearch: TfrmGenericSearch
         80000080800000808000008080000080800000808000}
       OptionsImage.NumGlyphs = 2
       TabOrder = 2
+      ExplicitLeft = 382
     end
     object btnCancel: TcxButton
-      Left = 463
+      Left = 543
       Top = 16
       Width = 80
       Height = 27
@@ -393,6 +398,7 @@ object frmGenericSearch: TfrmGenericSearch
         80000080800000808000008080000080800000808000}
       OptionsImage.NumGlyphs = 2
       TabOrder = 3
+      ExplicitLeft = 463
     end
   end
   object dsSource: TUniDataSource

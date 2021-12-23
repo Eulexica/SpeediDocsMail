@@ -4,8 +4,8 @@ object frmSaveDocDetails: TfrmSaveDocDetails
   AlphaBlendValue = 245
   BorderStyle = bsDialog
   Caption = 'SpeediDocsMail  Save'
-  ClientHeight = 680
-  ClientWidth = 528
+  ClientHeight = 727
+  ClientWidth = 537
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -58,8 +58,8 @@ object frmSaveDocDetails: TfrmSaveDocDetails
   TextHeight = 13
   object StatusBar: TStatusBar
     Left = 0
-    Top = 661
-    Width = 528
+    Top = 708
+    Width = 537
     Height = 19
     BorderWidth = 2
     Panels = <
@@ -72,16 +72,22 @@ object frmSaveDocDetails: TfrmSaveDocDetails
   object dxLayoutControl1: TdxLayoutControl
     Left = 0
     Top = 0
-    Width = 528
-    Height = 661
+    Width = 537
+    Height = 708
     Align = alClient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
     ParentBackground = True
+    ParentFont = False
     TabOrder = 1
     Transparent = True
     AutoSize = True
     object Label7: TLabel
-      Left = 115
-      Top = 41
+      Left = 123
+      Top = 43
       Width = 402
       Height = 26
       AutoSize = False
@@ -89,8 +95,8 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       WordWrap = True
     end
     object neUnits: TcxSpinEdit
-      Left = 79
-      Top = 482
+      Left = 82
+      Top = 514
       Enabled = False
       Style.BorderColor = clWindowFrame
       Style.BorderStyle = ebs3D
@@ -98,11 +104,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.ButtonStyle = bts3D
       TabOrder = 16
       Value = 1
-      Width = 425
+      Width = 429
     end
     object memoTimeNarration: TcxMemo
-      Left = 79
-      Top = 433
+      Left = 82
+      Top = 464
       Enabled = False
       Properties.ScrollBars = ssVertical
       Style.BorderColor = clWindowFrame
@@ -110,11 +116,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.HotTrack = False
       TabOrder = 15
       Height = 43
-      Width = 425
+      Width = 429
     end
     object cmbTasks: TcxLookupComboBox
-      Left = 79
-      Top = 406
+      Left = 82
+      Top = 434
       Enabled = False
       Properties.KeyFieldNames = 'CODE'
       Properties.ListColumns = <
@@ -128,13 +134,13 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.ButtonStyle = bts3D
       Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 14
-      Width = 425
+      Width = 429
     end
     object btnSave: TBitBtn
-      Left = 159
-      Top = 623
+      Left = 163
+      Top = 662
       Width = 102
-      Height = 26
+      Height = 27
       Caption = '&Save'
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
@@ -175,10 +181,10 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       OnClick = btnSaveClick
     end
     object btnClose: TBitBtn
-      Left = 267
-      Top = 623
+      Left = 272
+      Top = 662
       Width = 101
-      Height = 26
+      Height = 27
       Caption = '&Cancel'
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
@@ -219,24 +225,24 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       OnClick = btnCloseClick
     end
     object cbPortalAccess: TCheckBox
-      Left = 208
-      Top = 287
+      Left = 210
+      Top = 309
       Width = 156
       Height = 17
       Caption = 'Client Portal Access'
       TabOrder = 10
     end
     object cbOverwriteDoc: TCheckBox
-      Left = 11
-      Top = 310
-      Width = 506
+      Left = 12
+      Top = 333
+      Width = 513
       Height = 18
       Caption = 'Overwrite Current Document'
       TabOrder = 11
     end
     object cbLeaveDocOpen: TCheckBox
-      Left = 11
-      Top = 287
+      Left = 12
+      Top = 309
       Width = 191
       Height = 17
       Caption = 'Leave Document open after save'
@@ -245,8 +251,8 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       TabOrder = 9
     end
     object cbNewCopy: TCheckBox
-      Left = 240
-      Top = 15
+      Left = 246
+      Top = 16
       Width = 113
       Height = 16
       Caption = 'Create new copy'
@@ -255,8 +261,8 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       TabOrder = 1
     end
     object cmbPrecCategory: TcxLookupComboBox
-      Left = 98
-      Top = 127
+      Left = 103
+      Top = 136
       Properties.ClearKey = 46
       Properties.KeyFieldNames = 'NPRECCATEGORY'
       Properties.ListColumns = <
@@ -273,11 +279,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.ButtonStyle = bts3D
       Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 4
-      Width = 419
+      Width = 422
     end
     object cmbClassification: TcxLookupComboBox
-      Left = 98
-      Top = 154
+      Left = 103
+      Top = 166
       Properties.ClearKey = 46
       Properties.KeyFieldNames = 'NPRECCLASSIFICATION'
       Properties.ListColumns = <
@@ -293,11 +299,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.ButtonStyle = bts3D
       Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 5
-      Width = 419
+      Width = 422
     end
     object cmbAuthor: TcxLookupComboBox
-      Left = 98
-      Top = 260
+      Left = 103
+      Top = 279
       Properties.ClearKey = 46
       Properties.KeyFieldNames = 'CODE'
       Properties.ListColumns = <
@@ -313,38 +319,38 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.ButtonStyle = bts3D
       Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 8
-      Width = 419
+      Width = 422
     end
     object chkCreateTime: TCheckBox
-      Left = 24
-      Top = 383
-      Width = 480
+      Left = 26
+      Top = 410
+      Width = 485
       Height = 17
       Caption = 'Create Time Sheet Entry'
       TabOrder = 13
       OnClick = chkCreateTimeClick
     end
     object txtDocName: TcxTextEdit
-      Left = 98
-      Top = 73
+      Left = 103
+      Top = 76
       Style.BorderColor = clWindowFrame
       Style.BorderStyle = ebs3D
       Style.HotTrack = False
       TabOrder = 2
-      Width = 419
+      Width = 422
     end
     object edKeywords: TcxTextEdit
-      Left = 98
-      Top = 181
+      Left = 103
+      Top = 196
       Style.BorderColor = clWindowFrame
       Style.BorderStyle = ebs3D
       Style.HotTrack = False
       TabOrder = 6
-      Width = 419
+      Width = 422
     end
     object memoPrecDetails: TcxMemo
-      Left = 98
-      Top = 208
+      Left = 103
+      Top = 226
       Properties.ClearKey = 46
       Properties.ScrollBars = ssVertical
       Style.BorderColor = clWindowFrame
@@ -352,11 +358,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.HotTrack = False
       TabOrder = 7
       Height = 46
-      Width = 419
+      Width = 422
     end
     object btnEditMatter: TcxButtonEdit
-      Left = 98
-      Top = 11
+      Left = 103
+      Top = 12
       Properties.Buttons = <
         item
           Default = True
@@ -385,8 +391,8 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Width = 136
     end
     object btnTxtDocPath: TcxButtonEdit
-      Left = 98
-      Top = 334
+      Left = 103
+      Top = 358
       Hint = 'Macros Available'
       Properties.Buttons = <
         item
@@ -439,11 +445,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.HotTrack = False
       Style.ButtonStyle = bts3D
       TabOrder = 12
-      Width = 419
+      Width = 422
     end
     object cmbFolder: TcxLookupComboBox
-      Left = 98
-      Top = 100
+      Left = 103
+      Top = 106
       Properties.KeyFieldNames = 'FOLDER_ID'
       Properties.ListColumns = <
         item
@@ -457,11 +463,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Style.ButtonStyle = bts3D
       Style.PopupBorderStyle = epbsFrame3D
       TabOrder = 3
-      Width = 419
+      Width = 422
     end
     object Memo1: TcxMemo
-      Left = 11
-      Top = 522
+      Left = 12
+      Top = 558
       Lines.Strings = (
         'Memo1')
       ParentColor = True
@@ -477,11 +483,11 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       StyleHot.LookAndFeel.NativeStyle = False
       TabOrder = 17
       Height = 37
-      Width = 506
+      Width = 513
     end
     object chkApplyToSameMatter: TcxCheckBox
-      Left = 11
-      Top = 565
+      Left = 12
+      Top = 602
       AutoSize = False
       Caption = 'Save all Emails to Matter selected'
       Properties.Alignment = taLeftJustify
@@ -491,16 +497,16 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       TabOrder = 18
       Transparent = True
       Height = 25
-      Width = 506
+      Width = 513
     end
     object lblProgress: TcxLabel
-      Left = 11
-      Top = 596
+      Left = 12
+      Top = 634
       AutoSize = False
       Style.HotTrack = False
       Transparent = True
       Height = 21
-      Width = 506
+      Width = 513
     end
     object dxLayoutControl1Group_Root: TdxLayoutGroup
       AlignHorz = ahParentManaged
@@ -508,6 +514,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       CaptionOptions.Visible = False
       ButtonOptions.Buttons = <>
       Hidden = True
+      ItemIndex = 16
       Locked = True
       ShowBorder = False
       Index = -1
@@ -559,7 +566,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = txtDocName
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 242
       ControlOptions.ShowBorder = False
       Index = 2
@@ -571,7 +578,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = cmbPrecCategory
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 242
       ControlOptions.ShowBorder = False
       Index = 4
@@ -583,7 +590,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = cmbClassification
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 242
       ControlOptions.ShowBorder = False
       Index = 5
@@ -595,7 +602,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = edKeywords
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 242
       ControlOptions.ShowBorder = False
       Index = 6
@@ -620,7 +627,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = cmbAuthor
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 242
       ControlOptions.ShowBorder = False
       Index = 8
@@ -697,7 +704,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = neUnits
       ControlOptions.MinHeight = 21
       ControlOptions.MinWidth = 21
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 51
       ControlOptions.ShowBorder = False
       Index = 2
@@ -709,7 +716,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = cmbTasks
       ControlOptions.MinHeight = 21
       ControlOptions.MinWidth = 21
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 255
       ControlOptions.ShowBorder = False
       Index = 0
@@ -721,7 +728,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = btnClose
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 26
+      ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 101
       ControlOptions.ShowBorder = False
       Index = 1
@@ -733,7 +740,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = btnSave
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 26
+      ControlOptions.OriginalHeight = 27
       ControlOptions.OriginalWidth = 102
       ControlOptions.ShowBorder = False
       Index = 0
@@ -782,7 +789,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       CaptionOptions.Text = 'New Group'
       CaptionOptions.Visible = False
       ButtonOptions.Buttons = <>
-      ItemIndex = 1
       LayoutDirection = ldHorizontal
       ShowBorder = False
       Index = 16
@@ -794,7 +800,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Control = cmbFolder
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
-      ControlOptions.OriginalHeight = 21
+      ControlOptions.OriginalHeight = 23
       ControlOptions.OriginalWidth = 141
       ControlOptions.ShowBorder = False
       Index = 3

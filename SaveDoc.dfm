@@ -192,6 +192,7 @@ object dmSaveDoc: TdmSaveDoc
       '  DOC.FOLDER_ID,'
       '  DOC.EMAIL_SUBJECT,'
       '  DOC.DOC_NOTES,'
+      '  DOC.PROGRAM_VERSION,'
       '  DOC.ROWID'
       'FROM'
       '  DOC'
@@ -252,34 +253,36 @@ object dmSaveDoc: TdmSaveDoc
     SQL.Strings = (
       'select 1 as rec_found'
       'from '
-      'doc'
+      '   doc'
       'where'
-      'trim(email_subject)= trim(:email_subject)'
+      '   trim(email_subject)= trim(:email_subject)'
       'and'
       
-        'To_date(TO_CHAR(:d_create, '#39'DD/MM/YYYY HH:MI:SS'#39'),'#39'DD/MM/YYYY HH' +
-        ':MI:SS'#39') between To_date(TO_CHAR(d_create - (2 / (24*60*60)), '#39'D' +
-        'D/MM/YYYY HH:MI:SS'#39'),'#39'DD/MM/YYYY HH:MI:SS'#39') '
-      
-        '  and To_date(TO_CHAR(d_create + (10 / (24*60*60)), '#39'DD/MM/YYYY ' +
-        'HH:MI:SS'#39'),'#39'DD/MM/YYYY HH:MI:SS'#39')'
+        '   To_date(TO_CHAR(:d_create, '#39'DD/MM/YYYY HH:MI:SS'#39'),'#39'DD/MM/YYYY' +
+        ' HH:MI:SS'#39') > To_date(TO_CHAR(d_create - (2 / (24*60)), '#39'DD/MM/Y' +
+        'YYY HH:MI:SS'#39'),'#39'DD/MM/YYYY HH:MI:SS'#39') '
       'and '
-      'fileid = :fileid')
+      
+        '   To_date(TO_CHAR(:d_create, '#39'DD/MM/YYYY HH:MI:SS'#39'),'#39'DD/MM/YYYY' +
+        ' HH:MI:SS'#39')  < To_date(TO_CHAR(d_create + (10 / (24*60)), '#39'DD/MM' +
+        '/YYYY HH:MI:SS'#39'),'#39'DD/MM/YYYY HH:MI:SS'#39')'
+      'and '
+      '   trim(fileid) = nvl(trim(:fileid),trim(fileid)) ')
     Left = 106
     Top = 202
     ParamData = <
       item
-        DataType = ftUnknown
+        DataType = ftString
         Name = 'email_subject'
         Value = nil
       end
       item
-        DataType = ftUnknown
+        DataType = ftDateTime
         Name = 'd_create'
         Value = nil
       end
       item
-        DataType = ftUnknown
+        DataType = ftString
         Name = 'fileid'
         Value = nil
       end>

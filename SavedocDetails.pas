@@ -289,7 +289,7 @@ begin
          with Application do
          begin
             NormalizeTopMosts;
-            if MsgAsk('Are you sure you want to file to BHL Insight again?') = mrNo then
+            if MsgAsk('Are you sure you want to file this email again?') = mrNo then
             begin
                 RestoreTopMosts;
                 exit;

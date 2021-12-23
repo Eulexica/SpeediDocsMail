@@ -1,5 +1,5 @@
 #define AppName "{543CFF7F-8DE9-4797-AEDF-83DCD6C3E8D7}"
-#define AppVersion "4.0.0.26"
+#define AppVersion "4.0.0.28"
 
 
 
@@ -43,6 +43,7 @@ Source: "gdiplus.dll";                                        DestDir: "{app}"; 
 Source: "SpeediDocsMail.ini";                                 DestDir: "{app}";
 Source: "IntResource.dll";                                    DestDir: "{app}"; Flags: ignoreversion
 Source: "IntResource64.dll";                                  DestDir: "{app}"; Flags: ignoreversion
+Source: "RwEasyMAPI64.exe";                                   DestDir: "{app}"; Check: IsOutlook64bit
 ;Source: "register_dll.bat";                                   DestDir: "{app}"; Flags: deleteafterinstall
 
 ; Add the ISSkin DLL used for skinning Inno Setup installations.

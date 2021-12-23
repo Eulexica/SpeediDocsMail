@@ -5,7 +5,8 @@ interface
 uses
   SysUtils, ComObj, adxAddIn, SpeediDocsMail_TLB, ComServ, ActiveX,
   Variants, Outlook2000, Outlook2010, System.Classes, StdVcl,
-  Registry, Windows, SaveDoc, adxHostAppEvents, Outlook_Tlb;
+  Registry, Windows, SaveDoc, adxHostAppEvents, Outlook_Tlb, adxolFormsManager,
+  Dialogs;
 
   const
    csRegistryRoot = 'Software\Colateral\Axiom\SpeediDocs';
@@ -15,6 +16,8 @@ uses
 type
   TInsight_Addin_for_Outlook = class(TadxAddin, IInsight_Addin_for_Outlook)
   end;
+
+  TFolderItems = class;
 
   TAddInModule = class(TadxCOMAddInModule)
     adxRibbonTab1: TadxRibbonTab;
@@ -47,12 +50,19 @@ type
     procedure adxCOMAddInModuleAddInFinalize(Sender: TObject);
     procedure adxOutlookAppEvents1ItemSend(ASender: TObject;
       const Item: IDispatch; var Cancel: WordBool);
+    procedure adxOutlookAppEvents1NewInspector(ASender: TObject;
+      const Inspector: _Inspector);
   private
       FItems,
       FItemsSent: TItems;
       LRegAxiom: TRegistry;
       sRegistryRoot: string;
       LDocList: Array of MailItem;
+      FMailSent: boolean;
+
+      FFolderItems: TFolderItems;
+
+      procedure ConnectToFolderByIndex(const AIndex: Integer);
 
       procedure DoItemAdd(ASender: TObject; const Item: IDispatch);
       procedure DoSave;
@@ -60,7 +70,26 @@ type
 
   protected
   public
-   ol2010: Outlook2010._Application;
+
+      ol2010: Outlook2010._Application;
+
+      property MailSent: boolean read FMailSent write FMailSent;
+
+      procedure DoItemSend(ASender: TObject; const Item: IDispatch;
+               var Cancel: WordBool);
+  end;
+
+  TFolderItems = class(TItems)
+  private
+    function GetFolder: MAPIFolder;
+  protected
+    procedure DoItemAdd(ASender: TObject; const Item: IDispatch);
+    procedure DoItemChange(ASender: TObject; const Item: IDispatch);
+    procedure DoItemRemove(Sender: TObject);
+  public
+    constructor Create(AOwner: TComponent); override;
+    procedure ConnectTo(AFolder: Outlook2000.MAPIFolder);
+    property Folder: MAPIFolder read GetFolder;
   end;
 
 var
@@ -80,8 +109,77 @@ uses
    OutlookUnit, SaveDocDetails, dxCore, LoginDetails, SaveDocFunc,
    NewFee, vcl.controls, DocList;
 
+{ TFolderItems }
+
+constructor TFolderItems.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  Self.OnItemAdd := DoItemAdd;
+  Self.OnItemChange := DoItemChange;
+  Self.OnItemRemove := DoItemRemove;
+end;
+
+procedure TFolderItems.ConnectTo(AFolder: Outlook2000.MAPIFolder);
+begin
+  if Assigned(AFolder) then
+    inherited ConnectTo(AFolder.Items);
+end;
+
+function TFolderItems.GetFolder: MAPIFolder;
+begin
+  Result := nil;
+  if Assigned(DefaultInterface) then
+    Result := DefaultInterface.Parent as MAPIFolder;
+end;
+
+procedure TFolderItems.DoItemAdd(ASender: TObject; const Item: IDispatch);
+var
+   Mail: Outlook2010.MailItem;
+   IFolderSent: MAPIFolder;
+begin
+   try
+      if Assigned(Item) then
+      begin
+         Item.QueryInterface(IID__MailItem, Mail);
+         if Assigned(Mail) then
+         begin
+            try
+               IFolderSent := Mail.Parent as MAPIFolder;
+               if ((IFolderSent.Name = 'Sent Items') or
+                  (IFolderSent.Name = 'Sent Mail')or
+                  (IFolderSent.Name = 'Sent')) then
+               begin
+                  try
+                     SentMessage(Mail, True);
+                  finally
+                     Mail := nil;
+                  end;
+               end;
+            finally
+               IFolderSent := nil;
+            end;
+         end;
+      end;
+   except
+//
+   end;
+end;
+
+procedure TFolderItems.DoItemChange(ASender: TObject; const Item: IDispatch);
+begin
+  ShowMessage('An Item is changed in the "' + Folder.Name + '" folder.');
+end;
+
+procedure TFolderItems.DoItemRemove(Sender: TObject);
+begin
+  ShowMessage('An Item is removed from the "' + Folder.Name + '" folder.');
+end;
+
+
 procedure TAddInModule.adxCOMAddInModuleAddInBeginShutdown(Sender: TObject);
 begin
+   FFolderItems.Disconnect;
+   FFolderItems := nil;
    try
       if Assigned(dmConnection) then
       begin
@@ -96,7 +194,8 @@ end;
 procedure TAddInModule.adxCOMAddInModuleAddInFinalize(Sender: TObject);
 begin
    if Assigned(FItems) then
-      FItems.Free;
+      FreeAndNil(FItems);
+   OutlookApp.OnItemSend := nil;
 end;
 
 procedure TAddInModule.adxCOMAddInModuleAddInInitialize(Sender: TObject);
@@ -105,6 +204,7 @@ begin
 //   FDefItems := TItems.Create(nil);
 //   FDefItems.ConnectTo(OutlookApp.GetNamespace('MAPI').GetDefaultFolder(olFolderSentMail).Items);
 //   FDefItems.OnItemAdd := DoItemAdd;
+   OutlookApp.OnItemSend := DoItemSend;
 end;
 
 procedure TAddInModule.adxCOMAddInModuleAddInStartupComplete(Sender: TObject);
@@ -151,10 +251,13 @@ begin
          end
          else
 //            adxOlFormsManager.Items[0].ExplorerLayout := elUnknown;
+
+//         FFolderItems := TFolderItems.Create(Self);
+
+         dmConnection.VerNumber := ReportVersion(SysUtils.GetModuleName(HInstance));
       finally
          LregAxiom.Free;
       end;
-
    end;
 end;
 
@@ -167,6 +270,45 @@ begin
    except
       // Ignore
    end;
+end;
+
+procedure TAddInModule.DoItemSend(ASender: TObject; const Item: IDispatch;
+  var Cancel: WordBool);
+var
+   IMail: MailItem;
+   objStore : Outlook_Tlb._store;
+   objFolder : Outlook_Tlb.MAPIFolder;
+begin
+  if Assigned(Item) then
+  begin
+    Item.QueryInterface(IID__MailItem, IMail);
+    if Assigned(IMail) then
+      try
+         if (IMail.SendUsingAccount = nil) then
+         begin
+            objFolder := IMail.SaveSentMessageFolder;
+            FItems := TItems.Create(nil);
+//         SentMessage(IMail as Outlook2010.MailItem, True);
+            FItems.ConnectTo(outlook2000._Items(objFolder.Items));
+            FItems.OnItemAdd := DoItemAdd;
+         end
+         else
+         if (IMail.SendUsingAccount <> nil) then
+         begin
+            objStore := IMail.SendUsingAccount.DeliveryStore;
+
+            objFolder := objStore.GetDefaultFolder(olFolderSentMail); //Version Added: Outlook 2010
+
+            FItems := TItems.Create(nil);
+
+            FItems.ConnectTo(outlook2000._Items(objFolder.Items));
+            FItems.OnItemAdd := DoItemAdd;
+//         FFolderItems.OnItemAdd := FFolderItems.DoItemAdd;
+         end;
+      finally
+         IMail := nil;
+      end;
+  end;
 end;
 
 procedure TAddInModule.adxOutlookAppEvents1ItemSend(ASender: TObject;
@@ -186,29 +328,51 @@ begin
       FItems := nil;
    end;
 
-   IMail := (Item as MailItem);
-   Inspector := OutlookApp.ActiveInspector;
-   Inspector.CurrentItem.QueryInterface(IID__MailItem, IMail);
-   ol2010:= self.OutlookApp.Application as Outlook_Tlb._Application;
-
-//   strStoreName := IMail.SendUsingAccount.DisplayName;
-
-   if (IMail.SendUsingAccount = nil) then
+   if (Item is TMailItem) then
    begin
-      SentMessage(Outlook2010.MailItem(IMail), True);
-   end
-   else
-   if (IMail.SendUsingAccount <> nil) then
-   begin
-      objStore := IMail.SendUsingAccount.DeliveryStore;
-//      objstore := ol2010.Session.Stores.Item(ol2010.Session.Accounts.Item(I).DisplayName);
-//      objFolder := objstore.Session.GetDefaultFolder(olFolderSentMail);
-      objFolder := objStore.GetDefaultFolder(olFolderSentMail); //Version Added: Outlook 2010
+      IMail := (Item as MailItem);
+      Inspector := OutlookApp.ActiveInspector;
+      Inspector.CurrentItem.QueryInterface(IID__MailItem, IMail);
+      ol2010:= self.OutlookApp.Application as Outlook_Tlb._Application;
 
-      FItems := TItems.Create(nil);
-      FItems.ConnectTo(outlook2000._Items(objFolder.Items));
-      FItems.OnItemAdd := DoItemAdd;
+//      strStoreName := IMail.SendUsingAccount.DisplayName;
+
+      if (IMail.SendUsingAccount = nil) then
+      begin
+         objFolder := IMail.SaveSentMessageFolder;
+         FItems := TItems.Create(nil);
+//         SentMessage(IMail as Outlook2010.MailItem, True);
+         FItems.ConnectTo(outlook2000._Items(objFolder.Items));
+         FItems.OnItemAdd := DoItemAdd;
+      end
+      else
+      if (IMail.SendUsingAccount <> nil) then
+      begin
+         objStore := IMail.SendUsingAccount.DeliveryStore;
+//         objstore := ol2010.Session.Stores.Item(ol2010.Session.Accounts.Item(I).DisplayName);
+//         objFolder := objstore.Session.GetDefaultFolder(olFolderSentMail);
+         objFolder := objStore.GetDefaultFolder(olFolderSentMail); //Version Added: Outlook 2010
+
+         FItems := TItems.Create(nil);
+
+//         FFolderItems.ConnectTo(OutlookApp.GetNamespace('MAPI').GetDefaultFolder(olFolderSentMail));
+         FItems.ConnectTo(outlook2000._Items(objFolder.Items));
+         FItems.OnItemAdd := DoItemAdd;
+//         FFolderItems.OnItemAdd := FFolderItems.DoItemAdd;
+      end;
+//      FFolderItems.ConnectTo(OutlookApp.GetNamespace('MAPI').GetDefaultFolder(olFolderSentMail));
    end;
+end;
+
+procedure TAddInModule.adxOutlookAppEvents1NewInspector(ASender: TObject;
+  const Inspector: _Inspector);
+var
+   lInspector: _Inspector;
+   Mail: Outlook2010.MailItem;
+begin
+   lInspector := Inspector as Outlook_Tlb.Inspector;
+   Mail := lInspector.CurrentItem as Outlook2010.MailItem;
+   MailSent := ((Mail.Sent = True) and (Mail.EntryID <> ''));
 end;
 
 procedure TAddInModule.adxOutlookAppEvents1NewMailEx(ASender: TObject;
@@ -730,6 +894,25 @@ begin
          end;
       end;
    end;
+end;
+
+procedure TAddInModule.ConnectToFolderByIndex(const AIndex: Integer);
+var
+  DefFolder: OlDefaultFolders;
+begin
+  case AIndex of
+    1: DefFolder := olFolderDeletedItems;
+    2: DefFolder := olFolderDrafts;
+    3: DefFolder := olFolderInbox;
+    4: DefFolder := olFolderOutbox;
+    5: DefFolder := olFolderSentMail;
+    6: DefFolder := olFolderContacts;
+    7: DefFolder := olFolderTasks;
+    8: DefFolder := olFolderCalendar;
+  else
+    DefFolder := olFolderInbox;
+  end;
+  FFolderItems.ConnectTo(OutlookApp.GetNamespace('MAPI').GetDefaultFolder(DefFolder));
 end;
 
 initialization

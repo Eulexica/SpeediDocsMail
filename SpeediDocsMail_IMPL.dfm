@@ -11,8 +11,8 @@ object AddInModule: TAddInModule
   OnAddInBeginShutdown = adxCOMAddInModuleAddInBeginShutdown
   OnAddInFinalize = adxCOMAddInModuleAddInFinalize
   TaskPanes = <>
-  Height = 135
-  Width = 271
+  Height = 184
+  Width = 304
   object adxRibbonTab1: TadxRibbonTab
     Caption = 'SpeediDocs'
     Controls = <
@@ -303,10 +303,8 @@ object AddInModule: TAddInModule
   end
   object adxOutlookAppEvents1: TadxOutlookAppEvents
     HandleEvents = []
-    OnItemSend = adxOutlookAppEvents1ItemSend
-    OnNewMailEx = adxOutlookAppEvents1NewMailEx
-    Left = 74
-    Top = 70
+    Left = 122
+    Top = 86
   end
   object adxRibbonContextMenu1: TadxRibbonContextMenu
     ContextMenuNames.Strings = (

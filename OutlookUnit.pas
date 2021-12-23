@@ -122,6 +122,7 @@ begin
       FMail := AMail;
    end;
 
+
    if FMail <> nil then
    begin
       Categories := AMail.Categories;
@@ -264,6 +265,7 @@ begin
             dmConnection.qryMatterAttachments.FieldByName('EMAIL_FROM').AsString := lEmailFrom;
             dmConnection.qryMatterAttachments.FieldByName('EMAIL_SENT_TO').AsString := lEmailTo;
             dmConnection.qryMatterAttachments.FieldByName('EMAIL_SUBJECT').AsString := FMail.Subject;
+            dmConnection.qryMatterAttachments.FieldByName('PROGRAM_VERSION').AsString := dmConnection.VerNumber;
 
 
 
@@ -571,6 +573,7 @@ begin
             Prop := nil;
          end;
       end;
+
       if (pos('#', sSubject) > 0) then
       begin
          for i := 1 to length(sSubject) do
@@ -644,7 +647,8 @@ begin
             end;
             InboxMessage(AMail, FileID, ANewEmail);
          end
-         else if ((FileID <> '') and (MatterExists(FileID) = FALSE)) then
+         else
+         if ((FileID <> '') and (MatterExists(FileID) = FALSE)) then
          begin
              if (bCategoriseEmails = True) then
               begin
@@ -767,11 +771,12 @@ begin
             with dmConnection.qryCheckEmail do
             begin
                Close;
-               ParamByName('email_subject').AsString := sSubject;
+               ParamByName('email_subject').AsString := Amail.Subject;  //  sSubject;
                ParamByName('D_CREATE').AsDateTime := AMail.ReceivedTime;
                ParamByName('fileid').AsString := FileID;
                Open;
-               if ((FieldByName('rec_found').IsNull = True) or (ANewEmail = True))  then
+
+               if ((dmConnection.qryCheckEmail.EOF = TRUE) and (ANewEmail = True))  then
                begin
                   FMail := AMail;
                   DfltDir := SystemString('DRAG_DEFAULT_DIRECTORY');
