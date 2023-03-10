@@ -63,8 +63,8 @@ var
    OLEResult: HResult;
    Unknown: IUnknown;
    MailName: WideString;
-   lSubject,
-   lEmailFrom
+   lSubject
+   ,lEmailFrom
    ,FileID
    ,AParsedDocName
    ,lEmailTo
@@ -79,8 +79,8 @@ var
    ,ParsedVarDocName
    ,ParsedOldDocName
    ,VarDocName
-   ,RandFile,
-   LPrevFILEID : string;
+   ,RandFile
+   ,LPrevFILEID : string;
    up: UserProperty;
    ups: UserProperties;
    item: IDispatch;
@@ -266,8 +266,6 @@ begin
             dmConnection.qryMatterAttachments.FieldByName('EMAIL_SENT_TO').AsString := lEmailTo;
             dmConnection.qryMatterAttachments.FieldByName('EMAIL_SUBJECT').AsString := FMail.Subject;
             dmConnection.qryMatterAttachments.FieldByName('PROGRAM_VERSION').AsString := dmConnection.VerNumber;
-
-
 
             if (APrec_Category > -1) then
                dmConnection.qryMatterAttachments.FieldByName('NPRECCATEGORY').AsInteger := APrec_Category
@@ -474,7 +472,7 @@ begin
             if SaveTime = True then
             begin
                lTimeUnits := dmConnection.SystemInteger('TIME_UNITS');
-               if ATask <> '' then
+               if (ATask <> '') then
                   lTask := ATask
                else
                   lTask := dmConnection.SystemString('DFLT_EMAIL_TASK');

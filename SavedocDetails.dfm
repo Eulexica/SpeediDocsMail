@@ -4,7 +4,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
   AlphaBlendValue = 245
   BorderStyle = bsDialog
   Caption = 'SpeediDocsMail  Save'
-  ClientHeight = 727
+  ClientHeight = 721
   ClientWidth = 537
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -58,7 +58,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
   TextHeight = 13
   object StatusBar: TStatusBar
     Left = 0
-    Top = 708
+    Top = 702
     Width = 537
     Height = 19
     BorderWidth = 2
@@ -68,12 +68,13 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       end>
     ParentFont = True
     UseSystemFont = False
+    ExplicitTop = 708
   end
   object dxLayoutControl1: TdxLayoutControl
     Left = 0
     Top = 0
     Width = 537
-    Height = 708
+    Height = 702
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -84,7 +85,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
     ParentFont = False
     TabOrder = 1
     Transparent = True
-    AutoSize = True
     object Label7: TLabel
       Left = 123
       Top = 43
@@ -122,11 +122,15 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Left = 82
       Top = 434
       Enabled = False
+      Properties.ClearKey = 46
+      Properties.DropDownRows = 10
+      Properties.ImmediatePost = True
       Properties.KeyFieldNames = 'CODE'
       Properties.ListColumns = <
         item
           FieldName = 'DESCR'
         end>
+      Properties.ListOptions.ShowHeader = False
       Properties.ListSource = dmSaveDoc.dsScaleCost
       Style.BorderColor = clWindowFrame
       Style.BorderStyle = ebs3D
@@ -225,7 +229,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       OnClick = btnCloseClick
     end
     object cbPortalAccess: TCheckBox
-      Left = 210
+      Left = 229
       Top = 309
       Width = 156
       Height = 17
@@ -243,7 +247,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
     object cbLeaveDocOpen: TCheckBox
       Left = 12
       Top = 309
-      Width = 191
+      Width = 210
       Height = 17
       Caption = 'Leave Document open after save'
       Checked = True
@@ -512,7 +516,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       AlignHorz = ahParentManaged
       AlignVert = avParentManaged
       CaptionOptions.Visible = False
-      ButtonOptions.Buttons = <>
       Hidden = True
       ItemIndex = 16
       Locked = True
@@ -642,7 +645,7 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       ControlOptions.MinHeight = 19
       ControlOptions.MinWidth = 19
       ControlOptions.OriginalHeight = 17
-      ControlOptions.OriginalWidth = 191
+      ControlOptions.OriginalWidth = 210
       ControlOptions.ShowBorder = False
       Index = 0
     end
@@ -761,7 +764,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Parent = dxLayoutControl1Group_Root
       CaptionOptions.Text = 'New Group'
       CaptionOptions.Visible = False
-      ButtonOptions.Buttons = <>
       LayoutDirection = ldHorizontal
       ShowBorder = False
       Index = 0
@@ -771,7 +773,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       CaptionOptions.AlignHorz = taCenter
       CaptionOptions.Text = 'New Group'
       CaptionOptions.Visible = False
-      ButtonOptions.Buttons = <>
       LayoutDirection = ldHorizontal
       ShowBorder = False
       Index = 9
@@ -780,7 +781,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       Parent = dxLayoutControl1Group_Root
       CaptionOptions.Text = 'New Group'
       CaptionOptions.Visible = False
-      ButtonOptions.Buttons = <>
       Index = 12
     end
     object dxLayoutGroup4: TdxLayoutGroup
@@ -788,7 +788,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
       AlignHorz = ahCenter
       CaptionOptions.Text = 'New Group'
       CaptionOptions.Visible = False
-      ButtonOptions.Buttons = <>
       LayoutDirection = ldHorizontal
       ShowBorder = False
       Index = 16
@@ -818,7 +817,6 @@ object frmSaveDocDetails: TfrmSaveDocDetails
     object dxLayoutGroupTimeFields: TdxLayoutGroup
       Parent = dxLayoutGroupTime
       CaptionOptions.Text = 'New Group'
-      ButtonOptions.Buttons = <>
       Enabled = False
       ShowBorder = False
       Index = 1
