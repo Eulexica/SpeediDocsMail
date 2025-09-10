@@ -48,20 +48,20 @@ object frmNewFee: TfrmNewFee
       ParentColor = False
     end
     object BitBtn1: TBitBtn
-      Left = 186
+      Left = 180
       Top = 393
-      Width = 75
-      Height = 25
+      Width = 78
+      Height = 28
       Kind = bkOK
       NumGlyphs = 2
       TabOrder = 12
       OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
-      Left = 268
+      Left = 265
       Top = 393
-      Width = 75
-      Height = 25
+      Width = 78
+      Height = 28
       Kind = bkCancel
       NumGlyphs = 2
       TabOrder = 13
@@ -237,7 +237,7 @@ object frmNewFee: TfrmNewFee
     object dxLayoutControl1Group_Root: TdxLayoutGroup
       AlignHorz = ahClient
       AlignVert = avClient
-      ButtonOptions.Buttons = <>
+      AllowRemove = False
       Hidden = True
       ShowBorder = False
       Index = -1
@@ -245,7 +245,6 @@ object frmNewFee: TfrmNewFee
     object dxLayoutGroup1: TdxLayoutGroup
       Parent = dxLayoutControl1Group_Root
       CaptionOptions.Text = 'Hidden Group'
-      ButtonOptions.Buttons = <>
       Hidden = True
       ShowBorder = False
       Index = 0
@@ -255,7 +254,6 @@ object frmNewFee: TfrmNewFee
       AlignHorz = ahLeft
       AlignVert = avTop
       CaptionOptions.Text = 'Hidden Group'
-      ButtonOptions.Buttons = <>
       Hidden = True
       ItemIndex = 2
       ShowBorder = False
@@ -265,7 +263,6 @@ object frmNewFee: TfrmNewFee
       Parent = dxLayoutGroup2
       AlignHorz = ahLeft
       CaptionOptions.Text = 'Hidden Group'
-      ButtonOptions.Buttons = <>
       Hidden = True
       ItemIndex = 2
       LayoutDirection = ldHorizontal
@@ -289,7 +286,6 @@ object frmNewFee: TfrmNewFee
       Parent = dxLayoutGroup2
       AlignHorz = ahLeft
       CaptionOptions.Text = 'Hidden Group'
-      ButtonOptions.Buttons = <>
       Hidden = True
       LayoutDirection = ldHorizontal
       ShowBorder = False
@@ -302,7 +298,6 @@ object frmNewFee: TfrmNewFee
       SizeOptions.AssignedValues = [sovSizableHorz]
       SizeOptions.SizableHorz = True
       SizeOptions.Width = 357
-      ButtonOptions.Buttons = <>
       Hidden = True
       ShowBorder = False
       Index = 0
@@ -354,7 +349,6 @@ object frmNewFee: TfrmNewFee
       Parent = dxLayoutGroup2
       AlignHorz = ahLeft
       CaptionOptions.Text = 'Hidden Group'
-      ButtonOptions.Buttons = <>
       Hidden = True
       LayoutDirection = ldHorizontal
       ShowBorder = False
@@ -428,7 +422,6 @@ object frmNewFee: TfrmNewFee
       SizeOptions.AssignedValues = [sovSizableHorz]
       SizeOptions.SizableHorz = True
       SizeOptions.Width = 331
-      ButtonOptions.Buttons = <>
       Hidden = True
       ItemIndex = 2
       LayoutDirection = ldHorizontal
@@ -451,8 +444,8 @@ object frmNewFee: TfrmNewFee
       CaptionOptions.Text = 'BitBtn1'
       CaptionOptions.Visible = False
       Control = BitBtn1
-      ControlOptions.OriginalHeight = 25
-      ControlOptions.OriginalWidth = 75
+      ControlOptions.OriginalHeight = 28
+      ControlOptions.OriginalWidth = 78
       ControlOptions.ShowBorder = False
       Index = 1
     end
@@ -462,8 +455,8 @@ object frmNewFee: TfrmNewFee
       CaptionOptions.Text = 'BitBtn2'
       CaptionOptions.Visible = False
       Control = BitBtn2
-      ControlOptions.OriginalHeight = 25
-      ControlOptions.OriginalWidth = 75
+      ControlOptions.OriginalHeight = 28
+      ControlOptions.OriginalWidth = 78
       ControlOptions.ShowBorder = False
       Index = 2
     end
@@ -482,7 +475,6 @@ object frmNewFee: TfrmNewFee
       Parent = dxLayoutGroup2
       CaptionOptions.Text = 'New Group'
       CaptionOptions.Visible = False
-      ButtonOptions.Buttons = <>
       ShowBorder = False
       Index = 1
     end
@@ -619,7 +611,7 @@ object frmNewFee: TfrmNewFee
     SQL.Strings = (
       
         'SELECT nvl(AMOUNT,0) as amount, nvl(RATE,0) as rate, DESCR, UNIT' +
-        ', ZERO_FEE '
+        ', ZERO_FEE, DEFAULTTIME '
       'FROM SCALECOST '
       'WHERE CODE = :P_Code')
     Left = 344
