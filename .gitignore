@@ -28,3 +28,12 @@ __recovery/*
 Win32/Output/SpeediDocsMail.dll
 Win64/Output/SpeediDocsMail.dll
 Win32/Output/SpeediDocsMail.dll
+_Setup/SpeediDocsMail.exe
+_Setup/SpeediDocsMail.exe
+Win32/Output/SpeediDocsMail.dll
+*.dll
+Win32/Output/SpeediDocsMail.drc
+Win32/Output/SpeediDocsMail.dll
+Win32/Output/SpeediDocsMail.drc
+*.map
+*.rsm

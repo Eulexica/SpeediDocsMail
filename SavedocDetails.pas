@@ -336,10 +336,10 @@ begin
                FEditing := True;
             end;
 
-               if btnTxtDocPath.Text = '' then
-                  tmpFileName := txtDocName.Text
-               else
-                  tmpFileName := btnTxtDocPath.Text;
+            if btnTxtDocPath.Text = '' then
+               tmpFileName := txtDocName.Text
+            else
+               tmpFileName := btnTxtDocPath.Text;
 
             try
                if cmbPrecCategory.Text = '' then
@@ -358,8 +358,9 @@ begin
                   cmbFolderKeyValue := cmbFolder.EditValue;
 
 
-               if (cmbTasks.Text <> '') then
+               if (length(cmbTasks.Text) > 0) then
                  lTask := cmbTasks.EditValue;
+
                SaveOutlookMessage(DocSequence, 1,btnTxtDocPath.Text,
                            cbNewCopy.Checked, cbOverwriteDoc.Checked, btnEditMatter.Text,
                            cmbAuthor.EditValue, txtDocName.Text,
@@ -420,8 +421,8 @@ end;
 
 Procedure  TfrmSaveDocDetails.ProcessFile;
 var
-    lDocName: string;
-    x: integer;
+   lDocName: string;
+   x: integer;
 begin
    IMail := DocList[FileNumber];
    MailSubject := IMail.Subject;

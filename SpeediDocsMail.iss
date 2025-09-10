@@ -1,5 +1,5 @@
 #define AppName "{543CFF7F-8DE9-4797-AEDF-83DCD6C3E8D7}"
-#define AppVersion "4.0.0.28"
+#define AppVersion "4.0.0.29"
 
 
 
@@ -44,7 +44,9 @@ Source: "SpeediDocsMail.ini";                                 DestDir: "{app}";
 Source: "IntResource.dll";                                    DestDir: "{app}"; Flags: ignoreversion
 Source: "IntResource64.dll";                                  DestDir: "{app}"; Flags: ignoreversion
 Source: "RwEasyMAPI64.exe";                                   DestDir: "{app}"; Check: IsOutlook64bit
+Source: "register_EMAPI.bat";                                 DestDir: "{app}"; Flags: deleteafterinstall
 ;Source: "register_dll.bat";                                   DestDir: "{app}"; Flags: deleteafterinstall
+
 
 ; Add the ISSkin DLL used for skinning Inno Setup installations.
 ;Source: ISSkin.dll; DestDir: {app}; Flags: dontcopy
@@ -53,7 +55,7 @@ Source: "RwEasyMAPI64.exe";                                   DestDir: "{app}"; 
 ;Source: Office2007.cjstyles; DestDir: {tmp}; Flags: dontcopy 
 
 [Run]
-;Filename: "register_dll.bat"; WorkingDir: "{app}"; StatusMsg: "Registering SpeediDocsMail....."; Flags: runhidden;
+Filename: "register_EMAPI.bat"; WorkingDir: "{app}"; StatusMsg: "Registering EasyMAPI 64bit file....."; Flags: runhidden; Check: IsOutlook64bit;
 
 [UninstallRun]
 Filename: "{sys}\Regsvr32.exe"; Parameters: " /u/s SpeediDocsMail.dll"; WorkingDir: "{app}"; StatusMsg: "UnRegistering SpeediDocsMail..."; Flags: runhidden;
@@ -399,5 +401,34 @@ var
 begin
   s := GetOutlookVersionNumberAsString;
   Result := Format('SOFTWARE\Microsoft\Office\%s\Outlook\Resiliency\DoNotDisableAddinList',[s]);
-end;  
+end;
+
+(*
+function InitializeUninstall(): Boolean;
+begin
+  Result := MsgBox('InitializeUninstall:' #13#13 'Uninstall is initializing. Do you really want to start Uninstall?', mbConfirmation, MB_YESNO) = idYes;
+  if Result = False then
+    MsgBox('InitializeUninstall:' #13#13 'Ok, bye bye.', mbInformation, MB_OK);
+end;
+
+procedure DeinitializeUninstall();
+begin
+  MsgBox('DeinitializeUninstall:' #13#13 'Bye bye!', mbInformation, MB_OK);
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  case CurUninstallStep of
+    usUninstall:
+      begin
+        MsgBox('CurUninstallStepChanged:' #13#13 'Uninstall is about to start.', mbInformation, MB_OK)
+        // ...insert code to perform pre-uninstall tasks here...
+      end;
+    usPostUninstall:
+      begin
+        MsgBox('CurUninstallStepChanged:' #13#13 'Uninstall just finished.', mbInformation, MB_OK);
+        // ...insert code to perform post-uninstall tasks here...
+      end;
+  end;
+end; *) 
   
