@@ -16,7 +16,7 @@ type
   TfrmNewFee = class(TForm)
     lblMatterDesc: TLabel;
     lblClient: TLabel;
-    BitBtn1: TBitBtn;
+    btnOk: TBitBtn;
     BitBtn2: TBitBtn;
     qryMRUList: TOraQuery;
     dsMRUList: TOraDataSource;
@@ -84,7 +84,7 @@ type
     procedure cmbMatterFindCloseUp(Sender: TObject);
     procedure neUnitsChange(Sender: TObject);
     procedure btnEditMatterExit(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure btnOkClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btnEditMatterPropertiesButtonClick(Sender: TObject;
@@ -452,10 +452,17 @@ begin
   neAmount.Value := dAmount;
 end;
 
-procedure TfrmNewFee.BitBtn1Click(Sender: TObject);
+procedure TfrmNewFee.btnOkClick(Sender: TObject);
+var
+   lTemplate: string;
 begin
+   if (not VarIsNull(cmbTemplate.EditValue)) then
+      lTemplate := cmbTemplate.EditValue
+   else
+      lTemplate := '';
+
    FeeInsert(nmatter , cbAuthor.EditValue, mmoDesc.Text,
-             neAmount.Value, cmbTemplate.EditValue, StrToInt(neUnits.Text),
+             neAmount.Value, lTemplate, StrToInt(neUnits.Text),
              neMinutes.Value, neRate.Value, cbTaxType.EditValue);
 end;
 
