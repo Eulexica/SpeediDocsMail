@@ -34,7 +34,7 @@ object frmNewFee: TfrmNewFee
       Width = 153
       Height = 33
       AutoSize = False
-      Color = 15790320
+      Color = clBtnFace
       ParentColor = False
       WordWrap = True
     end
@@ -44,10 +44,10 @@ object frmNewFee: TfrmNewFee
       Width = 357
       Height = 15
       AutoSize = False
-      Color = 15790320
+      Color = clBtnFace
       ParentColor = False
     end
-    object BitBtn1: TBitBtn
+    object btnOk: TBitBtn
       Left = 180
       Top = 393
       Width = 78
@@ -55,7 +55,7 @@ object frmNewFee: TfrmNewFee
       Kind = bkOK
       NumGlyphs = 2
       TabOrder = 12
-      OnClick = BitBtn1Click
+      OnClick = btnOkClick
     end
     object BitBtn2: TBitBtn
       Left = 265
@@ -273,7 +273,7 @@ object frmNewFee: TfrmNewFee
       Parent = dxLayoutGroup3
       CaptionOptions.Text = 'Matter:'
       Control = btnEditMatter
-      ControlOptions.OriginalHeight = 23
+      ControlOptions.OriginalHeight = 24
       ControlOptions.OriginalWidth = 118
       ControlOptions.ShowBorder = False
       Index = 0
@@ -443,7 +443,7 @@ object frmNewFee: TfrmNewFee
       AlignHorz = ahRight
       CaptionOptions.Text = 'BitBtn1'
       CaptionOptions.Visible = False
-      Control = BitBtn1
+      Control = btnOk
       ControlOptions.OriginalHeight = 28
       ControlOptions.OriginalWidth = 78
       ControlOptions.ShowBorder = False
@@ -682,9 +682,9 @@ object frmNewFee: TfrmNewFee
     Left = 32
     Top = 16
     object dxLayoutSkinLookAndFeel1: TdxLayoutSkinLookAndFeel
-      LookAndFeel.Kind = lfStandard
-      LookAndFeel.NativeStyle = False
-      LookAndFeel.SkinName = 'Office2019Colorful'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = True
+      LookAndFeel.SkinName = ''
       PixelsPerInch = 96
     end
   end
