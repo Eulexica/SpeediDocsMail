@@ -6,7 +6,7 @@
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
         <DCC_DependencyCheckOutputName>SpeediDocsMail.dll</DCC_DependencyCheckOutputName>
         <ProjectVersion>18.8</ProjectVersion>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -75,9 +75,9 @@
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_DcuOutput>.\Win32\Dcu\</DCC_DcuOutput>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.0.0.29;InternalName=Insight_Addin_for_Outlook;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=4.0.0.25;Comments=Insight Addin for Outlook</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=4.0.0.31;InternalName=Insight_Addin_for_Outlook;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=4.0.0.31;Comments=Insight Addin for Outlook</VerInfo_Keys>
         <VerInfo_MajorVer>4</VerInfo_MajorVer>
-        <VerInfo_Build>29</VerInfo_Build>
+        <VerInfo_Build>31</VerInfo_Build>
         <DCC_ExeOutput>.\Win32\Output\</DCC_ExeOutput>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -90,8 +90,8 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>None</Manifest_File>
         <VerInfo_MajorVer>4</VerInfo_MajorVer>
-        <VerInfo_Build>29</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=Bramcote Holdings Pty Ltd;FileDescription=Insight_Addin_for_Outlook;FileVersion=4.0.0.29;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=SpeediDocsMail;ProductName=;ProductVersion=4.0.0.25;Comments=Insight Addin for Outlook</VerInfo_Keys>
+        <VerInfo_Build>31</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Bramcote Holdings Pty Ltd;FileDescription=Insight_Addin_for_Outlook;FileVersion=4.0.0.31;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=SpeediDocsMail;ProductName=;ProductVersion=4.0.0.31;Comments=Insight Addin for Outlook</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <Version>7.0</Version>
